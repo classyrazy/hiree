@@ -10,7 +10,7 @@
       </div>
     <!-- </div> -->
     <div class="" :class="right ? 'text-right' : ''">
-      <h2 class="text-2xl text-black font-monts font-semibold my-2">
+      <h2 class="text-2xl text-dark font-monts font-semibold my-2">
         {{ cardHeader }}
       </h2>
       <p class="text-left"><slot></slot></p>

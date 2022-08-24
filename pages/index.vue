@@ -3,9 +3,9 @@
         <NavBar />
         <div class="w-full h-[70vh]  grid justify-center items-center mx-auto">
             <div class="mx-auto" style="max-width:1200px">
-                <h1 class="text-7xl font-bold font-monts text-center text-dark max-w-[700px] mx-auto">Find unicorn <span
+                <h1 class="text-5xl md:text-7xl font-bold font-monts text-center text-dark max-w-[700px] mx-auto">Find unicorn <span
                         class="text-grad">developers</span> with Ease</h1>
-                <p class="text-xl text-center max-w-[800px] mx-auto my-4 font-monts-alt">Let’s make your hiring process
+                <p class="md:text-xl text-center md:max-w-[800px] max-w-[900px] px-10 md:px-auto mx-auto my-4 font-monts-alt">Let’s make your hiring process
                     easier and
                     efficient by going through the filtered pool of developers right for your job without stress</p>
                 <div class="w-full justify-center py-4 flex gap-4 mx-auto">
@@ -15,17 +15,17 @@
             </div>
 
         </div>
-        <div class="md:flex w-[80%] gap-10 mx-auto justify-center py-24 text-dark">
-            <div class="px-8">
-                <h2 class="text-4xl font-bold font-monts">Hire the best fit for your next role today.</h2>
-                <p class="text-xl  max-w-[800px] my-4 font-monts-alt">Get remote or onsite developers with strong
+        <div class="md:flex lg:w-[80%] gap-10 mx-auto justify-center py-24 text-dark">
+            <div class="px-8 w-full">
+                <h2 class="text-2xl md:text-4xl font-bold font-monts">Hire the best fit for your next role today.</h2>
+                <p class="text-lg  max-w-[800px] my-4 font-monts-alt">Get remote or onsite developers with strong
                     technical and communication skills with ease, ready to work in your timezone.</p>
                     <div class="w-full  py-4 flex gap-4 mx-auto">
                     <c-button>Start Hiring</c-button>
                     <c-button type="b-pry-grad">Apply as a developer</c-button>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-[60%] ml-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4  ml-auto">
                 <features-card card-header="Hiring Made Easier" right>
                     <p>Sign up and choose the stack or skill you are looking for, you can choose more than one skill</p>
                 </features-card>
