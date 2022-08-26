@@ -40,6 +40,17 @@
             </div>
             
         </div>
+        <footer class="bg-grad-def">
+         <div class="">
+            <h2 class="text-white text-2xl font-monts-alt">Hiree.</h2>
+            <div class="socials">
+                <a href="https://www.facebook.com/"><img src="/images/facebook.svg" alt="facebook"></a>
+                <a href="https://www.twitter.com/"><img src="/images/twitter.svg" alt="twitter"></a>
+                <a href="https://www.instagram.com/"><img src="/images/instagram.svg" alt="instagram"></a>
+                <a href="https://www.linkedin.com/"><img src="/images/linkedin.svg" alt="linkedin"></a>
+            </div>
+         </div>   
+        </footer>
     </div>
 </template>
 
@@ -55,5 +66,8 @@ import NavBar from '../components/UI/NavBar.vue'
     background: linear-gradient(180deg, #CE33C7 0%, #ED267B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+.bg-grad-def{
+    background: linear-gradient(180deg, rgba(237, 38, 123, 0.76) 19.29%, rgba(151, 71, 255, 0.88) 100%);
 }
 </style>
