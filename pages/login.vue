@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-hidden h-screen block my-auto  center-middle md:px-0">
+    <div class="overflow-hidden h-screen block my-auto md:px-0">
     <nav class="flex justify-between items-center py-4 px-10">
         <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
         <div class="md:hidden">open</div>
@@ -61,10 +61,6 @@ import CInput from '../components/UI/forms/c-input.vue'
 <style scoped>
 .bg-gradient-def{
     background: linear-gradient(180deg, #CE33C7 0%, #ED267B 100%);
-}
-.svg{
-    height: 100%;
-    width: 100%;
 }
 
 </style>
