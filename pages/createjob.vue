@@ -15,71 +15,75 @@
         <p class="text-xl font-medium mt-5 text-gray-500 tracking-normal">Creating a job post gives you a ledge to share a link of your open position to any platform of your choice</p>
 
         <div class="block  mt-5">
-            <form class="mb-12">
+            <div class="mb-12 w-full">
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-6">
                     <div class="form-group">
-                        <h1 class="tracking-normal min-w-[78px] min-h-[17px]">Company name</h1>
+                        <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">Company name</h1>
                         <c-input type="text" class="form-control
           w-full
           pr-40
-         text-medium rounded-lg" full styleType="white" placeholder="Enter your company name"></c-input>
+         text-medium rounded-lg" full styleType="white" placeholder="Enter your company name" :value="formReactive.companyName"></c-input>
                     </div>
                     <div class="form-group">
-                        <h1 class="tracking-normal">Work Model</h1>
+                        <h1 class="tracking-normal required">Work Model</h1>
                         <select class="form-control
           w-full
           pr-40
           border
           p-4
-         text-medium rounded-lg">
+         text-medium rounded-lg" v-model="formReactive.workModel.value">
                             <option value="full time">Full Time</option>
                             <option value="part time">Part Time</option>
                         </select>
+                        <p class="text-[red]">{{formReactive.workModel.error}}</p>
                     </div>
 
                     <div class="form-group">
-                        <h1 class="tracking-normal">Job title</h1>
+                        <h1 class="tracking-normal required">Job title</h1>
                         <c-input type="text" class="form-control
           pr-40
           w-full 
-         text-medium rounded-lg" full styleType="white" placeholder="Enter your job title"></c-input>
+         text-medium rounded-lg" full styleType="white" placeholder="Enter your job title" :value="formReactive.title"></c-input>
                     </div>
 
                     <div class="form-group">
-                        <h1 class="tracking-normal">Job Location</h1>
+                        <h1 class="tracking-normal required">Job Location</h1>
                         <select class="form-control
           w-full
           pr-40
           border
           p-4
-         text-medium rounded-lg">
+         text-medium rounded-lg" v-model="formReactive.location.value">
                             <option value="full time">Full Time</option>
                             <option value="part time">Part Time</option>
                         </select>
+                        <p class="text-[red]">{{formReactive.location.error}}</p>
                     </div>
 
                 </div>
 
 
                 <div class="form-group mb-6">
-                    <h1 class="tracking-normal">Job Description</h1>
+                    <h1 class="tracking-normal required">Job Description</h1>
                     <textarea class="form-control
           p-20
           lg:w-[70%] w-full
-         text-medium rounded-lg border" full styleType="white" placeholder="Enter the job description (about job, requirements, salary) "></textarea>
+         text-medium rounded-lg border" full styleType="white" placeholder="Enter the job description (about job, requirements, salary)" v-model="formReactive.description.value"></textarea>
+            <p class="text-[red]" v-if="formReactive.description.error">{{formReactive.description.error}}</p>
                 </div>
 
                 <div class="form-group mb-6">
                     <c-input type="text" class="form-control
           pr-40
           lg:w-[70%] w-full 
-         text-medium rounded-lg" full styleType="white" placeholder="Enter your skills you are looking for"></c-input>
+         text-medium rounded-lg" full styleType="white" placeholder="Enter your skills you are looking for" :value="formReactive.skills"></c-input>
                 </div>
 
-                <c-button type="pry rounded-lg" size="big">Create Job</c-button>
+                <c-button type="pry rounded-lg" size="big" :loading="loading" @click="submitHandler">Create Job</c-button>
 
-            </form>
+            </div>
+            <formError :error-msg="createJobError" @close-error="createJobError = null"></formError>
         </div>
 
     </div>
@@ -87,11 +91,108 @@
 </template>
 
 <script setup lang="ts">
+import FormError from '../components/UI/form-error.vue'
 import CButton from '../components/UI/forms/c-button.vue'
 import CInput from '../components/UI/forms/c-input.vue'
+import useFormRequest from '../composables/useFormRequest'
+let createJobError = ref(null)
+let formReactive  = reactive({
+    companyName: {
+        value: null,
+        error: null
+    },
+    workModel: {
+        value: null,
+        error: null
+    },
+    title: {
+        value: null,
+        error: null
+    },
+    description: {
+        value: null,
+        error: null
+    },
+    location: {
+        value: null,
+        error: null
+    },
+    skills: {
+        value: null,
+        error: null
+    }
+})
 
+let validate = () => {
+    if (formReactive.companyName.value == null || formReactive.companyName.value.trim() == "") {
+        formReactive.companyName.error = "Company name is required";
+    }
+    else {
+        formReactive.companyName.error = null;
+    }
+    if (formReactive.workModel.value == null || formReactive.workModel.value.trim() == "") {
+        formReactive.workModel.error = "Work model is required";
+    }
+    else {
+        formReactive.workModel.error = null;
+    }
+    if (formReactive.title.value == null || formReactive.title.value.trim() == "") {
+        formReactive.title.error = "Title is required";
+    }
+    else {
+        formReactive.title.error = null;
+    }
+    if (formReactive.description.value == null || formReactive.description.value.trim() == "") {
+        formReactive.description.error = "Description is required";
+    }
+    else {
+        formReactive.description.error = null;
+    }
+    if (formReactive.location.value == null || formReactive.location.value.trim() == "") {
+        formReactive.location.error = "Location is required";
+    }
+    else {
+        formReactive.location.error = null;
+    }
+    if (formReactive.skills.value == null || formReactive.skills.value.trim() == "") {
+        formReactive.skills.error = "Skills is required";
+    }
+    else {
+        formReactive.skills.error = null;
+    }
+    
+}
+let { submitForm, loading, data } = useFormRequest(
+    "http://localhost:7000/api/user/createjob",
+    formReactive,
+    null,
+    (data) => {
+        console.log(data)
+        if(data){
+            console.log(data.data.token)
+            localStorage.setItem("USER_AUTH_TOKEN", data.data.token);
+            useRouter().push("/profile");
+        }
+
+    },
+    (error) => {
+        console.log(error)
+        signupError.value = error.response.data.error;
+    }
+);
+let submitHandler = () => {
+    validate();
+    console.log({ formReactive });
+
+    if (validate()) {
+        submitForm()
+    }
+};
 </script>
 
-<style>
-
+<style scoped>
+.required:after{
+    content: "*";
+    color:red
+}
 </style>

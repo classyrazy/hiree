@@ -11,12 +11,12 @@
                 <div class="mb-12 w-full" >
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-36">
                         <div class="form-group mb-6">
-                            <h1 class="tracking-normal min-w-[78px] min-h-[17px]">First Name</h1>
+                            <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">First Name</h1>
                             <c-input type="text" class=" " full styleType="white" placeholder="Enter your first name"
                                 :value="formReactive.firstname"></c-input>
                         </div>
                         <div class="form-group mb-6">
-                            <h1 class="tracking-normal">Last Name</h1>
+                            <h1 class="tracking-normal required">Last Name</h1>
                             <c-input type="text" class="" full styleType="white" placeholder="Enter your last name"
                                 :value="formReactive.lastname"></c-input>
                         </div>
@@ -24,13 +24,13 @@
                     <div class="form-group mb-6">
                         <h1 class="text-xl md:text-2xl font-semibold mb-6">About you</h1>
                         <div class="form-group flex flex-col">
-                            <label class="tracking-normal">Who are you</label>
+                            <label class="tracking-normal required">Who are you</label>
                             <textarea class=" p-4 lg:w-[70%] h-[150px] w-full text-medium rounded-lg border my-2"
                                 placeholder="tell us a little bit about yourself" id="who-are-you" v-model="formReactive.whoAreYou.value"></textarea>
                                 <p class="text-[red]" v-if="formReactive.whoAreYou.error">{{formReactive.whoAreYou.error}}</p>
                         </div>
                         <div class="form-group flex flex-col">
-                            <label class="tracking-normal">Pronouns</label>
+                            <label class="tracking-normal required">Pronouns</label>
                             <textarea class=" p-4 lg:w-[70%] h-[100px] w-full text-medium rounded-lg border my-2"
                                 placeholder="He/his, She/Her..." id="pronouns" v-model="formReactive.pronouns.value"></textarea>
                                 <p class="text-[red]">{{formReactive.pronouns.error}}</p>
@@ -60,22 +60,23 @@
 
                         </div>
                         <div class="form-group">
-                            <h1 class="tracking-normal">Country</h1>
+                            <h1 class="tracking-normal required">Country</h1>
                             <c-input type="text" class="" full styleType="white"
                                 placeholder="e.g Nigeria" :value="formReactive.username"></c-input>
                         </div>
                         <div class="form-group">
-                            <h1 class="tracking-normal">State</h1>
+                            <h1 class="tracking-normal required">State</h1>
                             <c-input type="text" class="" full styleType="white"
                                 placeholder="e.g lagos" :value="formReactive.city"></c-input>
                         </div>
                     </div>
 
                     <div class="form-group mb-6">
-                        <h1 class="tracking-normal">Skills</h1>
+                        <h1 class="tracking-normal required">Skills</h1>
                         <c-input type="text" class="" full styleType="white" placeholder="Enter your skills"
                             :value="skill" @keypress.enter="addSkill">
                         </c-input>
+                        <p class="text-[red]">{{formReactive.skills.error}}</p>
                         <div class="flex gap-2 flex-wrap mt-2" v-if="skills">
                             <input-pills v-for="(arrSkill, idx) in skills" :pill-text="arrSkill" :key="idx" @remove-pill="removePill(idx)"></input-pills>
                         </div>
@@ -83,7 +84,7 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-6">
                         <div class="form-group">
-                            <h1 class="tracking-normal min-w-[78px] min-h-[17px]">Preferred Work Model</h1>
+                            <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">Preferred Work Model</h1>
                             <select class="form-control w-full pr-40 border p-4 text-medium rounded-lg" v-model="formReactive.workmodel.value">
                                 <option value="full time">Full Time</option>
                                 <option value="part time">Part Time</option>
@@ -93,7 +94,7 @@
 
                         </div>
                         <div class="form-group">
-                            <h1 class="tracking-normal">Preferred Job Location Type</h1>
+                            <h1 class="tracking-normal required">Preferred Job Location Type</h1>
                             <select class="form-control w-full pr-40 border p-4 text-medium rounded-lg" v-model="formReactive.jobLocationType.value">
                                 <option value="remote">Remote</option>
                                 <option value="onsite">On site</option>
@@ -103,7 +104,7 @@
 
                         </div>
                         <div class="form-group">
-                            <h1 class="tracking-normal">Years of Experience</h1>
+                            <h1 class="tracking-normal required">Years of Experience</h1>
                             <c-input type="number" class="" full styleType="white"
                                 placeholder="Enter your years of experience" :value="formReactive.experience"></c-input>
                         </div>
@@ -119,7 +120,7 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-6">
                         <div class="form-group">
-                            <h1 class="tracking-normal min-w-[78px] min-h-[17px]">Twitter</h1>
+                            <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">Twitter</h1>
                             <c-input type="text" class="form-control w-full pr-40 text-medium rounded-lg" full
                                 styleType="white" placeholder="Enter your twitter link" :value="formReactive.twitter">
                             </c-input>
@@ -138,7 +139,7 @@
                         </div>
 
                         <div class="form-group">
-                            <h1 class="tracking-normal">Github</h1>
+                            <h1 class="tracking-normal required">Github</h1>
                             <c-input type="text" class="form-control pr-40 w-full text-medium rounded-lg" full
                                 styleType="white" placeholder="Enter your github link" :value="formReactive.github">
                             </c-input>
@@ -147,7 +148,7 @@
                     </div>
 
                     <div class="form-group mb-6">
-                        <h1 class="tracking-normal">Add your CV</h1>
+                        <h1 class="tracking-normalrequired ">Add your CV</h1>
                         <input type="file" class="form-control w-full md:w-[50%] border p-4 text-medium rounded-lg" full
                             styleType="white" placeholder="Upload your resume" :value="formReactive.file.value">
                                 <p class="text-[red]">{{formReactive.file.error}}</p>
@@ -261,6 +262,93 @@ let skills = reactive([])
 
 // })
 
+let validate = () => {
+    if (formReactive.firstname.value == null || formReactive.firstname.value.trim() == "") {
+        formReactive.firstname.error = "First Name is required";
+    }
+    else {
+        formReactive.firstname.error = null;
+    }
+    if (formReactive.lastname.value == null || formReactive.lastname.value.trim() == "") {
+        formReactive.lastname.error = "Last Name is required";
+    } 
+    else {
+        formReactive.lastname.error = null;
+    }
+    if (formReactive.whoAreYou.value == null || formReactive.whoAreYou.value.trim() == "") {
+        formReactive.whoAreYou.error = "About you is required";
+    }
+    else {
+        formReactive.whoAreYou.error = "";
+    }
+    if (formReactive.pronouns.value == null || formReactive.pronouns.value.trim() == "") {
+        formReactive.pronouns.error = "Pronouns is required";
+    }
+    else {
+        formReactive.pronouns.error = null;
+    }
+    if (formReactive.country.value == null || formReactive.country.value.trim() == "") {
+        formReactive.country.error = "Country is required";
+    }
+    else {
+        formReactive.country.error = null;
+    }
+    if (formReactive.city.value == null || formReactive.city.value.trim() == "") {
+        formReactive.city.error = "State is required";
+    }
+    else {
+        formReactive.city.error = null;
+    }
+    if (formReactive.skills.value == null || formReactive.skills.value.trim() == "") {
+        formReactive.skills.error = "Skills is required";
+    }
+    else {
+        formReactive.skills.error = null;
+    }
+    if (formReactive.username.value == null || formReactive.username.value.trim() == "") {
+        formReactive.username.error = "Country is required";
+    }
+    else {
+        formReactive.username.error = null;
+    }
+    if (formReactive.workmodel.value == null || formReactive.workmodel.value.trim() == "") {
+        formReactive.workmodel.error = "Work model is required";
+    }
+    else {
+        formReactive.workmodel.error = null;
+    }
+    if (formReactive.jobLocationType.value == null || formReactive.jobLocationType.value.trim() == "") {
+        formReactive.jobLocationType.error = "Job Location is required";
+    }
+    else {
+        formReactive.jobLocationType.error = null;
+    }
+    if (formReactive.experience.value == null || formReactive.experience.value.trim() == "") {
+        formReactive.experience.error = "Experience is required";
+    }
+    else {
+        formReactive.experience.error = null;
+    }
+    if (formReactive.twitter.value == null || formReactive.twitter.value.trim() == "") {
+        formReactive.twitter.error = "Twitter link is required";
+    }
+    else {
+        formReactive.twitter.error = null;
+    }
+    if (formReactive.github.value == null || formReactive.github.value.trim() == "") {
+        formReactive.github.error = "Github link is required";
+    }
+    else {
+        formReactive.github.error = null;
+    }
+    if (formReactive.file.value == null || formReactive.file.value.trim() == "") {
+        formReactive.file.error = "CV is required";
+    }
+    else {
+        formReactive.file.error = null;
+    }
+}
+
 function addSkill(){
     skills.push(skill.value)
     skill.value = null
@@ -292,7 +380,7 @@ let { submitForm, loading, data } = useFormRequest(
 }
 );
 let submitHandler = () => {
-    // validate();
+     validate();
     console.log({ formReactive });
 
     // if (validate()) {
@@ -304,5 +392,9 @@ let submitHandler = () => {
 
 </script>
 
-<style>
+<style scoped>
+.required:after{
+    content: "*";
+    color:red
+}
 </style>

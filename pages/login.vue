@@ -1,6 +1,6 @@
 <template>
-    <div class="overflow-hidden h-screen block my-auto md:px-0 font-monts text-dark">
-        <nav class="flex justify-between items-center py-6 px-10">
+<div class="overflow-hidden h-screen block my-auto md:px-0 font-monts text-dark">
+    <nav class="flex justify-between items-center py-6 px-10">
         <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
         <ul class="end-link gap-4 flex items-center">
             <li class="font-medium font-monts-alt text-md md:block hidden">
