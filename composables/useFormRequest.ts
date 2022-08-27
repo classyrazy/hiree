@@ -6,7 +6,7 @@ interface formObj {
 }
 export default function useFormRequest(
     service: string,
-    auth: boolean = false,
+    auth?: boolean,
     form?: object[] | null,
     postData?: object | null,
     done?: Function,

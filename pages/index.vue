@@ -44,10 +44,10 @@
          <div class="">
             <h2 class="text-white text-2xl font-monts-alt">Hiree.</h2>
             <div class="socials">
-                <a href="https://www.facebook.com/"><img src="/images/facebook.svg" alt="facebook"></a>
+                <!-- <a href="https://www.facebook.com/"><img src="/images/facebook.svg" alt="facebook"></a>
                 <a href="https://www.twitter.com/"><img src="/images/twitter.svg" alt="twitter"></a>
                 <a href="https://www.instagram.com/"><img src="/images/instagram.svg" alt="instagram"></a>
-                <a href="https://www.linkedin.com/"><img src="/images/linkedin.svg" alt="linkedin"></a>
+                <a href="https://www.linkedin.com/"><img src="/images/linkedin.svg" alt="linkedin"></a> -->
             </div>
          </div>   
         </footer>

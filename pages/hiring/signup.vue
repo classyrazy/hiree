@@ -158,13 +158,14 @@ let validate = () => {
     else {
         formReactive.confirmPassword.error = null;
     }
-    if (formReactive.email.error == null && formReactive.password.error == null && formReactive.confirmPassword.error == null) {
+    if (formReactive.name.error == null && formReactive.email.error == null && formReactive.password.error == null && formReactive.confirmPassword.error == null) {
         return true;
     }
     return false;
 }
 let { submitForm, loading, data } = useFormRequest(
     "http://localhost:7000/api/user/hiring/signup",
+    false,
     formReactive,
     null,
     (data) => {
@@ -178,7 +179,11 @@ let { submitForm, loading, data } = useFormRequest(
     },
     (error) => {
         console.log(error)
-        signupError.value = error.response.data.error;
+        if(error.response.data.error){
+            signupError.value = error.response.data.error;
+        }else if(error.message){
+            signupError.value = error.message;
+        }
     }
 );
 let submitHandler = () => {
