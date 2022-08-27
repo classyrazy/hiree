@@ -284,8 +284,12 @@ let { submitForm, loading, data } = useFormRequest(
     },
     (error) => {
         console.log(error)
+    if(error.response.data.error){
         createProfileError.value = error.response.data.error;
-    }
+    } else{
+        createProfileError.value = error.message;
+    }  
+}
 );
 let submitHandler = () => {
     // validate();
