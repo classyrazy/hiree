@@ -124,7 +124,7 @@ let validate = () => {
     return false;
 }
 let { submitForm, loading, data } = useFormRequest(
-    "http://localhost:7000/api/user/login",
+    "api/user/login",
     false,
     formReactive,
     null,
