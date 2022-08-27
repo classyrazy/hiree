@@ -20,7 +20,7 @@
         :class="[
           full ? 'right-2 left-auto' : '',
           styleType == 'grey-pry' ? 'bg-[#DCDCDC]' : '',
-          iconClick ? 'cursor-pointer' : '',
+          iconClick || type === 'password' ? 'cursor-pointer' : '',
           iconLeft ? 'left-2' : '',
         ]"
 
@@ -122,7 +122,7 @@ export default {
     if (type.value != "password") {
       _icon.value = props.icon;
     } else {
-      _icon.value = EyeClosed;
+      // _icon.value = EyeClosed;
     }
     function iconClicked() {
       if(!props.iconClick) return;

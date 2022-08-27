@@ -1,21 +1,22 @@
 <template>
     <div class="overflow-hidden h-screen block my-auto md:px-0 font-monts text-dark">
         <nav class="flex justify-between items-center py-6 px-10">
-        <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
-        <ul class="end-link gap-4 flex items-center">
-            <li class="font-medium font-monts-alt text-md md:block hidden">
-                <p>Don't have an account?</p>
-            </li>
-            <li class="">
-                <router-link to="/signup">
-                    <c-button size="medium">Sign up</c-button>
-                </router-link>
-            </li>
-        </ul>
-    </nav>
+            <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
+            <ul class="end-link gap-4 flex items-center">
+                <li class="font-medium font-monts-alt text-md md:block hidden">
+                    <p>Already have an account?</p>
+                </li>
+                <li class="">
+                    <router-link to="/login">
+                        <c-button size="medium">Log in</c-button>
+                    </router-link>
+                </li>
+            </ul>
+        </nav>
 
         <!-- <div class="w-full absolute bottom-0 md:hidden block">
-            <svg width="100%" height="555" viewBox="0 0 428 555" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <svg width="100%" height="555" viewBox="0 0 428 555" fill="none" xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none">
                 <path
                     d="M0 218.5C5.39934 139.61 59.7265 72.5932 135.793 50.9895L300.68 4.16019C364.527 -13.973 428 33.9835 428 100.356V555H0V218.5V218.5Z"
                     fill="url(#paint0_linear_156_180)" />
@@ -63,36 +64,52 @@
             </svg>
         </div>
 
-        <div class="w-full mt-24 relative px-4 ">
-            <formError :error-msg="loginError" @close-error="loginError = null"></formError>
-            <div class="bg-white border border-solid shadow-lg rounded-xl mt-10  max-w-md mx-auto">
+        <div class="w-full relative px-4 center-middle">
+            <formError :error-msg="signupError" @close-error="signupError = null"></formError>
+            <div class="bg-white border border-solid shadow-lg rounded-xl mt-10 max-w-md mx-auto">
                 <form class="lg:p-8" @submit.prevent="submitHandler">
-                    <div class="flex flex-col gap-4 p-5">
-                        <h2 class="font-bold text-2xl text-center font-monts">Log In</h2>
-                        <c-input type="email" placeholder="Enter email addresss" full styleType="white"
-                            class="text-sm rounded-lg" label="Email" :value="formReactive.email"></c-input>
+                    <div class="p-5">
+                        <h2 class="font-bold text-2xl text-center">Sign Up</h2>
+                        <p class="text-sm text-center my-2">Sign up as an hiring manager and start recruiting</p>
+                        <div class="flex flex-col gap-4">
+                            <c-input type="text" placeholder="Enter your company name" full styleType="white"
+                                class="text-sm rounded-lg " label="Company Name" :value="formReactive.name"></c-input>
+                            <c-input type="email" placeholder="Enter company email addresss" full styleType="white"
+                                class="text-sm rounded-lg " label="Company Email" :value="formReactive.email"></c-input>
 
-                        <c-input type="password" placeholder="Enter Password" full styleType="white"
-                            class="text-sm rounded-lg" label="Password" :value="formReactive.password"></c-input>
+                            <c-input type="password" placeholder="Enter your Password" full styleType="white"
+                                class="text-sm rounded-lg pt-3" label="Password" :value="formReactive.password"></c-input>
 
-                        <div class="mb-10 mt-4">
-                            <c-button full type="pry rounded-lg " size="" :loading="loading">Log In</c-button>
+                            <c-input type="password" placeholder="Enter your Password" full styleType="white"
+                                class="text-sm rounded-lg" label="Confirm Password" :value="formReactive.confirmPassword"></c-input>
+                            <div class="">
+                                <c-button full type="pry rounded-lg" size="" :loading="loading">Sign Up</c-button>
+                            </div>
+                            <p clas="text-xs">By signing up, you agree to our <span class="text-[#007CEF]"><a href="#">Terms and Conditions</a></span>
+                            </p>
                         </div>
+
                     </div>
                 </form>
+    
             </div>
+            <router-link to="/signup"><p class="text-center text-dark md:text-white my-6 underline">Sign up as a developer instead</p></router-link>
         </div>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import FormError from '../components/UI/form-error.vue'
-import CButton from '../components/UI/forms/c-button.vue'
-import CInput from '../components/UI/forms/c-input.vue'
-import useFormRequest from '../composables/useFormRequest'
-let loginError = ref(null)
+import FormError from '../../components/UI/form-error.vue'
+import CButton from '../../components/UI/forms/c-button.vue'
+import CInput from '../../components/UI/forms/c-input.vue'
+import useFormRequest from '../../composables/useFormRequest'
+let signupError = ref(null)
 let formReactive  = reactive({
+    name: {
+        value: null,
+        error: null
+    },
     email: {
         value: null,
         error: null
@@ -100,10 +117,23 @@ let formReactive  = reactive({
     password: {
         value: null,
         error: null
+    },
+    confirmPassword: {
+        value: null,
+        error: null
     }
 })
 
 let validate = () => {
+    if (formReactive.name.value == null || formReactive.name.value.trim() == "") {
+        formReactive.name.error = "Company name is required";
+    }
+    else if (formReactive.name.value.trim().length < 2) {
+        formReactive.name.error = "Password must be at least 2 characters";
+    }
+    else {
+        formReactive.email.error = null;
+    }
     if (formReactive.email.value == null || formReactive.email.value.trim() == "") {
         formReactive.email.error = "Email is required";
     }
@@ -118,26 +148,37 @@ let validate = () => {
     else {
         formReactive.password.error = null;
     }
-    if (formReactive.email.error == null && formReactive.password.error == null) {
+    if (formReactive.confirmPassword.value == null || formReactive.confirmPassword.value.trim() == "") {
+        formReactive.confirmPassword.error = "Confirm Password is required";
+    } else if (formReactive.confirmPassword.value.trim().length < 6) {
+        formReactive.confirmPassword.error = "Confirm Password must be at least 6 characters";
+    } else if (formReactive.confirmPassword.value.trim() !== formReactive.password.value.trim()) {
+        formReactive.confirmPassword.error = "Confirm Password must be same as Password";
+    }
+    else {
+        formReactive.confirmPassword.error = null;
+    }
+    if (formReactive.email.error == null && formReactive.password.error == null && formReactive.confirmPassword.error == null) {
         return true;
     }
     return false;
 }
 let { submitForm, loading, data } = useFormRequest(
-    "http://localhost:7000/api/user/login",
+    "http://localhost:7000/api/user/hiring/signup",
     formReactive,
     null,
     (data) => {
         console.log(data)
         if(data){
-            localStorage.setItem("USER_AUTH_TOKEN", data.token);
+            console.log(data.data.token)
+            localStorage.setItem("USER_AUTH_TOKEN", data.data.token);
             useRouter().push("/hiring");
         }
 
     },
     (error) => {
         console.log(error)
-        loginError.value = error.response.data.error;
+        signupError.value = error.response.data.error;
     }
 );
 let submitHandler = () => {
@@ -154,5 +195,12 @@ let submitHandler = () => {
 <style scoped>
 .bg-gradient-def {
     background: linear-gradient(180deg, #CE33C7 0%, #ED267B 100%);
+}
+
+.center-middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>

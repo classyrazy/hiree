@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-// import Spinner from '../svgs/loader-icon.vue'
+import Spinner from '../svgs/loader-icon.vue'
 
 
 import { computed } from "@vue/reactivity"
@@ -50,8 +50,8 @@ let props = defineProps({
 
 let base = 'font-monts-alt font-medium'
 let sizes = {
-    small: 'py-1 px-4 text-sm',
-    medium: 'py-2 px-8 text-md',
+    small: 'py-1 px-4 text-xs',
+    medium: 'py-3 px-8 text-sm',
     big: 'py-4 px-8 txt-s-4'
 }
 let types = {
