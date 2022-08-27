@@ -87,7 +87,7 @@ export default {
     let styleTypes = {
       "grey-pry":
         "bg-[#DCDCDC] rounded-2xl text-black focus:border-pry border-2 border-[#DCDCDC] rounded-lg",
-      white:"bg-[#fff] text-black focus:border-pry border-2 border-gray-100",
+      white:"bg-[#fff] text-black focus:border-black border-2 border-gray-100 rounded-lg",
       'search':"",
       "modal-search": "bg-[#fff] dark:bg-db text-black focus:border-pry border-b-0 border-gray-100 p-0 pb-1",
     };

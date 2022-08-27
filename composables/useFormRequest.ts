@@ -6,6 +6,7 @@ interface formObj {
 }
 export default function useFormRequest(
     service: string,
+    auth: boolean = false,
     form?: object[] | null,
     postData?: object | null,
     done?: Function,
@@ -41,9 +42,19 @@ export default function useFormRequest(
         console.log(form ?? postData);
 
         try {
+            let req = null
             //   let req = new Graph().service(service);
-            let req = axios.post(service, serverForm.value);
-
+            if(auth){
+                let token = localStorage.getItem("USER_AUTH_TOKEN");
+                if(!token){
+                    throw new Error("No token");
+                }
+                req = axios.post(service, serverForm.value, {
+                headers: {'Authorization': 'Bearer ' + token}
+            });
+            }else{
+                req = axios.post(service, serverForm.value);
+            }
             data.value = await req;
             clearError();
         } catch (error) {
