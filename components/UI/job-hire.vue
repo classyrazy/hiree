@@ -7,8 +7,8 @@
         <div class="flex justify-between gap-6 max-h-[300px] overflow-hidden ">
             <p class="text-ellipsis overflow-hidden text font-monts-alt text-md my-3">{{details.description}}</p>
             <div class="cta flex items-center gap-4 ">
-                <router-link :to="`/hiring/review/${details.id}`" class=""><c-button size="small">Review</c-button></router-link>
-                <router-link :to="`/hiring/${details.id}`" class=""><c-button type="b-pry-grad" size="small"> View</c-button></router-link>
+                <router-link :to="`/hiring/review/${details.id}`" class="" v-if="type == 'hiring'"><c-button size="small">Review</c-button></router-link>
+                <router-link :to="`/jobs/${details.id}`" class=""><c-button type="b-pry-grad" size="small"> View</c-button></router-link>
             </div>
         </div>
     </div>
@@ -29,10 +29,13 @@ interface Props {
         applications?: string[],
         __createdtime__: number,
         __updatedtime__: number,
-    }
+    },
+    type: string,
 }
 
-let props = defineProps<Props>()
+let props = withDefaults(defineProps<Props>(), {
+    type: 'hiring',
+})
 
 
 </script>
