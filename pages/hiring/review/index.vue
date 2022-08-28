@@ -1,92 +1,95 @@
 <template>
-    <div class=" h-screen justify-between">
-    <header class="sticky top-0 shadow  w-full px-10 py-6 flex justify-between items-center">
-        <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
-        <ul class="end-link gap-4 flex items-center">
-            <li class="">
-                <router-link to="/signup">
-                    <c-button size="medium">Done</c-button>
-                </router-link>
-            </li>
-        </ul>
-    </header>
+    <div class=" h-screen justify-between bg-red-200">
+        <header class="fixed top-0 w-full px-10 py-6 flex justify-between items-center">
+            <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
+            <ul class="end-link gap-4 flex items-center">
+                <li class="">
+                    <router-link to="/signup">
+                        <c-button size="medium">Done</c-button>
+                    </router-link>
+                </li>
+            </ul>
+        </header>
 
-    <main class="h-screen overflow-scroll">
-        <profile />
-    </main>
+        <main class="pt-24 bg-gray-100">
+            <div class="">
+                <div
+                    class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full left-[20px] top-[50%] cursor-pointer fixed">
+                    <left-icon></left-icon>
 
-    <footer class="sticky bottom-0 py-20 w-full bg-black">
+                </div>
+                <div
+                    class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full right-[20px] top-[50%] cursor-pointer fixed">
+                    <right-icon></right-icon>
+                </div>
+                <profile class="w-[80%] bg-gray-100" />
+            </div>
+        </main>
 
-        <div class="flex justify-center gap-6 cursor-pointer">
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M25 11C17.2 11 11 17.2 11 25C11 32.8 17.2 39 25 39C32.8 39 39 32.8 39 25C39 17.2 32.8 11 25 11ZM25 37C18.4 37 13 31.6 13 25C13 18.4 18.4 13 25 13C31.6 13 37 18.4 37 25C37 31.6 31.6 37 25 37Z" fill="#E80F0F" />
-                <path d="M30.4 32L25 26.6L19.6 32L18 30.4L23.4 25L18 19.6L19.6 18L25 23.4L30.4 18L32 19.6L26.6 25L32 30.4L30.4 32Z" fill="#E80F0F" />
-            </svg>
+        <footer class="fixed bottom-0 w-full py-6 bg-black font-monts">
 
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M34.76 31.296H31.112V36H26.056V31.296H13.992V27.808L24.552 13.6H29.992L20.2 27.072H26.216V22.88H31.112V27.072H34.76V31.296Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M23.928 22.016C27.0853 22.016 29.4107 22.6453 30.904 23.904C32.4187 25.1627 33.176 26.848 33.176 28.96C33.176 30.3253 32.8347 31.5733 32.152 32.704C31.4693 33.8133 30.424 34.7093 29.016 35.392C27.6293 36.0533 25.912 36.384 23.864 36.384C22.2853 36.384 20.728 36.1813 19.192 35.776C17.6773 35.3493 16.3867 34.752 15.32 33.984L17.368 30.016C18.2213 30.656 19.2027 31.1573 20.312 31.52C21.4213 31.8613 22.5627 32.032 23.736 32.032C25.0373 32.032 26.0613 31.776 26.808 31.264C27.5547 30.752 27.928 30.0373 27.928 29.12C27.928 28.16 27.5333 27.4347 26.744 26.944C25.976 26.4533 24.632 26.208 22.712 26.208H16.984L18.136 13.6H31.8V17.76H22.456L22.104 22.016H23.928Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M27.032 21.952C28.4613 21.952 29.7627 22.24 30.936 22.816C32.1093 23.392 33.0373 24.2133 33.72 25.28C34.4027 26.3253 34.744 27.5413 34.744 28.928C34.744 30.4213 34.3707 31.7333 33.624 32.864C32.8773 33.9947 31.8533 34.8693 30.552 35.488C29.272 36.0853 27.8427 36.384 26.264 36.384C23.128 36.384 20.6747 35.424 18.904 33.504C17.1333 31.584 16.248 28.8427 16.248 25.28C16.248 22.7413 16.728 20.5653 17.688 18.752C18.648 16.9387 19.9813 15.5627 21.688 14.624C23.416 13.6853 25.4107 13.216 27.672 13.216C28.8667 13.216 30.008 13.3547 31.096 13.632C32.2053 13.888 33.144 14.2613 33.912 14.752L31.992 18.56C30.8827 17.8133 29.4853 17.44 27.8 17.44C25.9013 17.44 24.3973 17.9947 23.288 19.104C22.1787 20.2133 21.5813 21.824 21.496 23.936C22.8187 22.6133 24.664 21.952 27.032 21.952ZM25.976 32.512C27.0853 32.512 27.9813 32.2133 28.664 31.616C29.368 31.0187 29.72 30.208 29.72 29.184C29.72 28.16 29.368 27.3493 28.664 26.752C27.9813 26.1333 27.064 25.824 25.912 25.824C24.7813 25.824 23.8533 26.144 23.128 26.784C22.4027 27.4027 22.04 28.2027 22.04 29.184C22.04 30.1653 22.392 30.9653 23.096 31.584C23.8 32.2027 24.76 32.512 25.976 32.512Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M33.784 13.6V16.96L25.464 36H19.832L27.864 17.824H20.44V21.472H15.832V13.6H33.784Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M31.576 24.224C32.6853 24.7787 33.528 25.504 34.104 26.4C34.7013 27.296 35 28.3307 35 29.504C35 30.8907 34.6053 32.1067 33.816 33.152C33.0267 34.176 31.9173 34.976 30.488 35.552C29.0587 36.1067 27.4053 36.384 25.528 36.384C23.6507 36.384 21.9973 36.1067 20.568 35.552C19.16 34.976 18.0613 34.176 17.272 33.152C16.504 32.1067 16.12 30.8907 16.12 29.504C16.12 28.3307 16.408 27.296 16.984 26.4C17.5813 25.504 18.424 24.7787 19.512 24.224C18.68 23.712 18.04 23.072 17.592 22.304C17.144 21.5147 16.92 20.6187 16.92 19.616C16.92 18.3147 17.2827 17.184 18.008 16.224C18.7333 15.264 19.7467 14.528 21.048 14.016C22.3493 13.4827 23.8427 13.216 25.528 13.216C27.2347 13.216 28.7387 13.4827 30.04 14.016C31.3627 14.528 32.3867 15.264 33.112 16.224C33.8373 17.184 34.2 18.3147 34.2 19.616C34.2 20.6187 33.976 21.5147 33.528 22.304C33.08 23.072 32.4293 23.712 31.576 24.224ZM25.528 17.024C24.4827 17.024 23.64 17.28 23 17.792C22.3813 18.2827 22.072 18.9653 22.072 19.84C22.072 20.6933 22.3813 21.3653 23 21.856C23.6187 22.3467 24.4613 22.592 25.528 22.592C26.5947 22.592 27.448 22.3467 28.088 21.856C28.728 21.3653 29.048 20.6933 29.048 19.84C29.048 18.9653 28.728 18.2827 28.088 17.792C27.448 17.28 26.5947 17.024 25.528 17.024ZM25.528 32.576C26.8293 32.576 27.8533 32.288 28.6 31.712C29.368 31.1147 29.752 30.3253 29.752 29.344C29.752 28.3627 29.368 27.584 28.6 27.008C27.8533 26.432 26.8293 26.144 25.528 26.144C24.248 26.144 23.2347 26.432 22.488 27.008C21.7413 27.584 21.368 28.3627 21.368 29.344C21.368 30.3467 21.7413 31.136 22.488 31.712C23.2347 32.288 24.248 32.576 25.528 32.576Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M24.12 13.216C27.256 13.216 29.7093 14.176 31.48 16.096C33.2507 17.9947 34.136 20.736 34.136 24.32C34.136 26.8587 33.656 29.0347 32.696 30.848C31.7573 32.6613 30.424 34.0373 28.696 34.976C26.968 35.9147 24.9733 36.384 22.712 36.384C21.5173 36.384 20.376 36.256 19.288 36C18.2 35.7227 17.272 35.3387 16.504 34.848L18.424 31.04C19.512 31.7867 20.9093 32.16 22.616 32.16C24.5147 32.16 26.0187 31.6053 27.128 30.496C28.2373 29.3653 28.8347 27.744 28.92 25.632C27.576 26.976 25.72 27.648 23.352 27.648C21.9227 27.648 20.6213 27.36 19.448 26.784C18.2747 26.208 17.3467 25.3973 16.664 24.352C15.9813 23.2853 15.64 22.0587 15.64 20.672C15.64 19.1787 16.0133 17.8667 16.76 16.736C17.5067 15.6053 18.52 14.7413 19.8 14.144C21.1013 13.5253 22.5413 13.216 24.12 13.216ZM24.504 23.776C25.6347 23.776 26.552 23.4667 27.256 22.848C27.9813 22.208 28.344 21.3973 28.344 20.416C28.344 19.4347 27.992 18.6347 27.288 18.016C26.6053 17.3973 25.656 17.088 24.44 17.088C23.3307 17.088 22.424 17.3867 21.72 17.984C21.0373 18.5813 20.696 19.392 20.696 20.416C20.696 21.44 21.0373 22.2613 21.72 22.88C22.424 23.4773 23.352 23.776 24.504 23.776Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <path d="M16.888 13.6V36H11.704V17.76H7.224V13.6H16.888ZM30.3793 36.384C28.5233 36.384 26.8699 35.9253 25.4193 35.008C23.9686 34.0907 22.8273 32.768 21.9953 31.04C21.1846 29.2907 20.7793 27.2107 20.7793 24.8C20.7793 22.3893 21.1846 20.32 21.9953 18.592C22.8273 16.8427 23.9686 15.5093 25.4193 14.592C26.8699 13.6747 28.5233 13.216 30.3793 13.216C32.2353 13.216 33.8886 13.6747 35.3393 14.592C36.7899 15.5093 37.9206 16.8427 38.7313 18.592C39.5633 20.32 39.9793 22.3893 39.9793 24.8C39.9793 27.2107 39.5633 29.2907 38.7313 31.04C37.9206 32.768 36.7899 34.0907 35.3393 35.008C33.8886 35.9253 32.2353 36.384 30.3793 36.384ZM30.3793 32C31.7446 32 32.8113 31.4133 33.5793 30.24C34.3686 29.0667 34.7633 27.2533 34.7633 24.8C34.7633 22.3467 34.3686 20.5333 33.5793 19.36C32.8113 18.1867 31.7446 17.6 30.3793 17.6C29.0353 17.6 27.9686 18.1867 27.1793 19.36C26.4113 20.5333 26.0273 22.3467 26.0273 24.8C26.0273 27.2533 26.4113 29.0667 27.1793 30.24C27.9686 31.4133 29.0353 32 30.3793 32Z" fill="black" />
-            </svg>
-
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="25" cy="25" r="25" fill="#D9D9D9" />
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_126_905)">
-                        <path d="M24.5 0.875L8.225 18.7688L3.5 15.1813H0.875L8.225 27.125L27.125 0.875H24.5Z" fill="#0B8F20" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_126_905">
-                            <rect width="28" height="28" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
-
-            </svg>
-
-        </div>
-    </footer>
-</div>
+            <ul class="flex justify-center gap-6">
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">
+                            <wrong-icon></wrong-icon>
+                        </span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">4</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">5</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">6</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">7</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">8</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">9</span>
+                    </div>
+                </li>
+                <li class="cursor-pointer">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                        <span class="font-bold text-2xl">
+                            <mark-icon></mark-icon>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </footer>
+    </div>
 
 </template>
 
 <script setup lang="ts">
+import WrongIcon from '../../../components/icons/wrong-icon.vue'
+import MarkIcon from '../../../components/icons/mark-icon.vue'
+import LeftIcon from '../../../components/icons/left-icon.vue'
+import RightIcon from '../../../components/icons/right-icon.vue'
 import FormError from '../components/UI/form-error.vue'
 import Profile from '../../../components/Profile/developer.vue'
 import CButton from '../../../components/UI/forms/c-button.vue'
 import useFormRequest from '../composables/useFormRequest'
 let createJobError = ref(null)
-let formReactive  = reactive({
+let formReactive = reactive({
     companyName: {
         value: null,
         error: null
