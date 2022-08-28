@@ -50,7 +50,7 @@ let props = defineProps({
 
 let base = 'font-monts-alt font-medium'
 let sizes = {
-    small: 'py-1 px-4 text-xs',
+    small: 'py-2 px-6 text-sm',
     medium: 'py-3 px-8 text-sm',
     big: 'py-4 px-8 txt-s-4'
 }

@@ -2,7 +2,7 @@
     <div>
         <div class="flex relative px-[15px] py-[20px] lg:px-[210px] lg:py-[47px] items-start flex-col font-monts">
             <router-link to="/" class="ml-1"><img src="/logo.svg" alt="logo"></router-link>
-            <h1 class="font-semibold text-xl md:text-3xl mt-9">Create your Developer Profile</h1>
+            <h1 class="font-semibold text-xl md:text-3xl mt-9 lg:pt-[47px]">Create your Developer Profile</h1>
             <p class="text-sm md:text-lg font-medium mt-5 text-gray-500 tracking-normal">Hiree suggests your developer
                 profile to
                 hiring managers and they contact you based on your qualifications</p>
@@ -80,12 +80,14 @@
                         <div class="flex gap-2 flex-wrap mt-2" v-if="skills">
                             <input-pills v-for="(arrSkill, idx) in skills" :pill-text="arrSkill" :key="idx" @remove-pill="removePill(idx)"></input-pills>
                         </div>
+                        <p class="text-xs text-dark" v-if="skills.length == 0">Enter to add more than one skill</p>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-6">
                         <div class="form-group">
                             <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">Preferred Work Model</h1>
-                            <select class="form-control w-full pr-40 border p-4 text-medium rounded-lg" v-model="formReactive.workmodel.value">
+                            <select class="form-control w-full border p-4 text-medium rounded-lg" v-model="formReactive.workmodel.value">
+                                <option disabled value="">Please select one</option>
                                 <option value="full time">Full Time</option>
                                 <option value="part time">Part Time</option>
                                 <option value="contract">Contract</option>
@@ -95,7 +97,8 @@
                         </div>
                         <div class="form-group">
                             <h1 class="tracking-normal required">Preferred Job Location Type</h1>
-                            <select class="form-control w-full pr-40 border p-4 text-medium rounded-lg" v-model="formReactive.jobLocationType.value">
+                            <select class="form-control w-full border p-4 text-medium rounded-lg" v-model="formReactive.jobLocationType.value">
+                                <option disabled value="">Please select one</option>
                                 <option value="remote">Remote</option>
                                 <option value="onsite">On site</option>
                                 <option value="hybrid">Hybrid</option>
@@ -132,15 +135,8 @@
                         </div>
 
                         <div class="form-group">
-                            <h1 class="tracking-normal">Email</h1>
-                            <c-input type="text" class="form-control pr-40 w-full text-medium rounded-lg" full
-                                styleType="white" placeholder="Enter your email" :value="formReactive.email">
-                            </c-input>
-                        </div>
-
-                        <div class="form-group">
                             <h1 class="tracking-normal required">Github</h1>
-                            <c-input type="text" class="form-control pr-40 w-full text-medium rounded-lg" full
+                            <c-input type="text" class="form-control w-full text-medium rounded-lg" full
                                 styleType="white" placeholder="Enter your github link" :value="formReactive.github">
                             </c-input>
                         </div>
@@ -150,7 +146,7 @@
                     <div class="form-group mb-6">
                         <h1 class="tracking-normalrequired ">Add your CV</h1>
                         <input type="file" class="form-control w-full md:w-[50%] border p-4 text-medium rounded-lg" full
-                            styleType="white" placeholder="Upload your resume" :value="formReactive.file.value">
+                            styleType="white" placeholder="Upload your resume" @change="setCv($event)">
                                 <p class="text-[red]">{{formReactive.file.error}}</p>
                     </div>
 
@@ -217,11 +213,11 @@ let formReactive = reactive({
         error: null
     },
     workmodel: {
-        value: null,
+        value: "",
         error: null
     },
     jobLocationType: {
-        value: null,
+        value: "",
         error: null
     },
     username: {
@@ -261,6 +257,9 @@ let skills = reactive([])
 // let computedSkills = computed(() => {
 
 // })
+function setCv(e) {
+    formReactive.file.value = e.target.files[0]
+}
 
 let validate = () => {
     if (formReactive.firstname.value == null || formReactive.firstname.value.trim() == "") {
@@ -299,7 +298,7 @@ let validate = () => {
     else {
         formReactive.city.error = null;
     }
-    if (formReactive.skills.value == null || formReactive.skills.value.trim() == "") {
+    if (formReactive.skills.value == null) {
         formReactive.skills.error = "Skills is required";
     }
     else {
@@ -323,7 +322,7 @@ let validate = () => {
     else {
         formReactive.jobLocationType.error = null;
     }
-    if (formReactive.experience.value == null || formReactive.experience.value.trim() == "") {
+    if (formReactive.experience.value == null) {
         formReactive.experience.error = "Experience is required";
     }
     else {
@@ -341,11 +340,17 @@ let validate = () => {
     else {
         formReactive.github.error = null;
     }
-    if (formReactive.file.value == null || formReactive.file.value.trim() == "") {
+    if (formReactive.file.value == null) {
         formReactive.file.error = "CV is required";
     }
     else {
         formReactive.file.error = null;
+    }
+    for (let key in formReactive) {
+        if (formReactive[key].error != null) {
+            return false;
+        }
+        return true
     }
 }
 
@@ -358,15 +363,14 @@ function removePill(index){
     skills.splice(index, 1)
 }
 let { submitForm, loading, data } = useFormRequest(
-    "http://localhost:7000/api/user/create-profile",
+    "api/user/create-profile",
     true,
     formReactive,
     null,
     (data) => {
         console.log(data)
         if(data){
-            localStorage.setItem("USER_AUTH_TOKEN", data.token);
-            useRouter().push("/hiring");
+            useRouter().push("/jobs");
         }
 
     },
@@ -380,12 +384,9 @@ let { submitForm, loading, data } = useFormRequest(
 }
 );
 let submitHandler = () => {
-     validate();
-    console.log({ formReactive });
-
-    // if (validate()) {
+    if (validate()) {
         submitForm()
-    // }
+    }
 };
 
 

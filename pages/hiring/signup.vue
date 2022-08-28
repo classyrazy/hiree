@@ -64,7 +64,7 @@
             </svg>
         </div>
 
-        <div class="w-full relative px-4 center-middle">
+        <div class="w-full relative px-4 mt-20">
             <formError :error-msg="signupError" @close-error="signupError = null"></formError>
             <div class="bg-white border border-solid shadow-lg rounded-xl mt-10 max-w-md mx-auto">
                 <form class="lg:p-8" @submit.prevent="submitHandler">
