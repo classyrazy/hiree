@@ -6,9 +6,15 @@
             <p class="text-sm md:text-lg font-medium mt-5 text-gray-500 tracking-normal">Select at least one skill</p>
 
             
-            <div class="skills-items col-lg-6">
+            <div class="grid grid-auto md:grid-cols-3 gap-4 max-w-[1000px]">
 
                 <!-- skills list -->
+                <div
+      v-for="skills in skillsItems"
+      :key="skills.id">
+    <div>
+    </div>
+    </div>
                
             </div>
 
@@ -36,6 +42,7 @@
 import FormError from '../../components/UI/form-error.vue'
 import InputPills from '../../components/UI/input-pills.vue'
 import CButton from '../../components/UI/forms/c-button.vue'
+import Jobpost from '../../components/UI/svgs/jobpost.vue'
 import CInput from '../../components/UI/forms/c-input.vue'
 import useFormRequest from '../../composables/useFormRequest'
 let skill = reactive({
@@ -43,16 +50,45 @@ let skill = reactive({
     error: null,
 })
 
+interface skillsType {
+    id: number;
+    svg: Object;
+    loading: boolean;
+}
+
 let formReactive = reactive({
     skills: {
         value: null,
         error: null
-    },
+    }, 
 })
 
-let skillsItems = reactive([
-       '../../components/UI/svgs/loader-icon.vue'
-    
+let skillsItems = reactive<skillsType[]>([
+       {
+        id: 1,
+    svg: Jobpost,
+    loading: false
+},
+{
+        id: 2,
+    svg: Jobpost,
+    loading: false
+},
+{
+        id: 3,
+    svg: Jobpost,
+    loading: false
+},
+{
+        id: 4,
+    svg: Jobpost,
+    loading: false
+},
+{
+        id: 5,
+    svg: Jobpost,
+    loading: false
+},
     
 ])
 
