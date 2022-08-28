@@ -12,7 +12,7 @@
                
             </div>
 
-        <div class="mb-12 w-[70%]" >
+        <div class="mb-12 " >
             <div class="form-group mb-6">
                         <h1 class="tracking-normal required">Skills</h1>
                         <c-input type="text" class="" full styleType="white" placeholder="Enter your skills"
