@@ -1,8 +1,13 @@
 <template>
     <div>
-        <div class="flex relative px-[15px] py-[20px] lg:px-[210px] lg:py-[47px] items-start flex-col font-monts">
+        <div class="flex relative px-[15px] py-[20px] lg:px-[210px] lg:py-[47px] items-start flex-col font-monts ">
             <router-link to="/" class="ml-1"><img src="/logo.svg" alt="logo"></router-link>
-            <h1 class="font-semibold text-xl md:text-3xl mt-9">Find developers to hire</h1>
+
+
+            <test-compo :test-array="developersArr" v-if="developersArr.length" :skills="skills"></test-compo>
+
+            <div class="" v-else>
+                <h1 class="font-semibold text-xl md:text-3xl mt-9">Find developers to hire</h1>
             <p class="text-sm md:text-lg font-medium mt-5 text-gray-500 tracking-normal">Select at least one skill</p>
 
             
@@ -24,20 +29,24 @@
                         </div>
                     </div>
             </div>
-            <div class="flex gap-4">
-                <c-button type="pry rounded-lg" size="big" :loading="loading" @click="submitHandler">Continue</c-button>
+            <div class="flex gap-4" >
+                <c-button type="pry rounded-lg" size="big" :loading="loading" @click="submitForm">Continue</c-button>
                 <div class="cursor-pointer border border-red-700 font-medium font-monts-alt text-md md:block p-4 rounded">Create A Job Post</div>
             </div>
         </div>
+            </div>
+
     </div>
 </template>
 
 <script setup lang="ts">
+import TestCompo from '../../components/testCompo.vue'
 import FormError from '../../components/UI/form-error.vue'
 import InputPills from '../../components/UI/input-pills.vue'
 import CButton from '../../components/UI/forms/c-button.vue'
 import CInput from '../../components/UI/forms/c-input.vue'
 import useFormRequest from '../../composables/useFormRequest'
+
 let skill = reactive({
     value: null,
     error: null,
@@ -69,7 +78,38 @@ function addSkill(){
 function removePill(index){
     skills.splice(index, 1)
 }
+let developersArr = reactive([])
+let { submitForm, loading, data } = useFormRequest(
+    "api/hire/review/select-skills",
+    true,
+    formReactive,
+    null,
+    (data) => {
+        if(data){
+            console.log(data)
+            data.data.forEach(element => {
+                element.skills.forEach(skill => {
+                    console.log("list")
+                    skills.forEach(skillClient => {
+                        if(skill.toLowerCase() == skillClient.toLowerCase()){
+                            developersArr.push(element)
+                        }
+                    })
+                }
+                )
+            });
+            console.log(developersArr)
+        }
 
+    },
+    (error) => {
+        console.log(error)
+        // loginError.value = error.response.data.error;
+    }
+);
+if(data){
+    console.log(developersArr)
+}
 
 
 </script>

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^5.3.2",
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "pinia": "^2.0.21",
+    "vue-modally-v3": "^0.0.7"
   }
 }

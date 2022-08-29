@@ -798,7 +798,7 @@
     "@vue/compiler-dom" "3.2.37"
     "@vue/shared" "3.2.37"
 
-"@vue/devtools-api@^6.1.4":
+"@vue/devtools-api@^6.1.4", "@vue/devtools-api@^6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.2.1.tgz#6f2948ff002ec46df01420dfeff91de16c5b4092"
   integrity sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ==
@@ -3720,6 +3720,14 @@ pify@^2.3.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
 
+pinia@^2.0.21:
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.21.tgz#2a6599ad3736fa71866f4b053ffb0073cd482270"
+  integrity sha512-6ol04PtL29O0Z6JHI47O3JUSoyOJ7Og0rstXrHVMZSP4zAldsQBXJCNF0i/H7m8vp/Hjd/CSmuPl7C5QAwpeWQ==
+  dependencies:
+    "@vue/devtools-api" "^6.2.1"
+    vue-demi "*"
+
 pkg-types@^0.3.3, pkg-types@^0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/pkg-types/-/pkg-types-0.3.4.tgz#bafb9ce824f78c93e50aaafb5accf41d8f2ef92f"
@@ -5035,6 +5043,18 @@ vue-bundle-renderer@^0.4.1:
   dependencies:
     ufo "^0.8.3"
 
+vue-demi@*:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
+  integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
+
+vue-modally-v3@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/vue-modally-v3/-/vue-modally-v3-0.0.7.tgz#0ae2af0c10fc4f7cb9ef280c5a5b76408bbd8e0f"
+  integrity sha512-pwa8J4axbkhSKOTlaYxWU9PBp0yyHLUoLM7Ulkqkv9DmQOTcuLzwT7gq2BSqY/a1VHJucymUvYpf507aAYmZNg==
+  dependencies:
+    vue "^3.2.16"
+
 vue-router@^4.1.3:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.4.tgz#290540caaf2c54e37a14dec047bd074002eca175"
@@ -5042,7 +5062,7 @@ vue-router@^4.1.3:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
-vue@^3.2.37:
+vue@^3.2.16, vue@^3.2.37:
   version "3.2.37"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.37.tgz#da220ccb618d78579d25b06c7c21498ca4e5452e"
   integrity sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ==
