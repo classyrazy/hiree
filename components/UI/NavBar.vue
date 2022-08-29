@@ -4,8 +4,8 @@
             <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
             <div class="md:hidden">open</div>
             <ul class="end-link gap-4 md:flex hidden">
-                <li class=""><router-link to="/developers"><c-button type="b-pry-grad" size="medium">Apply as a developer</c-button></router-link></li>
-                <li class=""><router-link to="/developers"><c-button size="medium">Start hiring</c-button></router-link></li>
+                <li class=""><router-link to="/signup"><c-button type="b-pry-grad" size="medium">Apply as a developer</c-button></router-link></li>
+                <li class=""><router-link to="/hiring/signup"><c-button size="medium">Start hiring</c-button></router-link></li>
             </ul>
         </nav>
     </div>
