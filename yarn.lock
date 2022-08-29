@@ -5048,13 +5048,6 @@ vue-demi@*:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
-vue-modally-v3@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/vue-modally-v3/-/vue-modally-v3-0.0.7.tgz#0ae2af0c10fc4f7cb9ef280c5a5b76408bbd8e0f"
-  integrity sha512-pwa8J4axbkhSKOTlaYxWU9PBp0yyHLUoLM7Ulkqkv9DmQOTcuLzwT7gq2BSqY/a1VHJucymUvYpf507aAYmZNg==
-  dependencies:
-    vue "^3.2.16"
-
 vue-router@^4.1.3:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.1.4.tgz#290540caaf2c54e37a14dec047bd074002eca175"
@@ -5062,7 +5055,7 @@ vue-router@^4.1.3:
   dependencies:
     "@vue/devtools-api" "^6.1.4"
 
-vue@^3.2.16, vue@^3.2.37:
+vue@^3.2.37:
   version "3.2.37"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.37.tgz#da220ccb618d78579d25b06c7c21498ca4e5452e"
   integrity sha512-bOKEZxrm8Eh+fveCqS1/NkG/n6aMidsI6hahas7pa0w/l7jkbssJVsRhVDs07IdDq7h9KHswZOgItnwJAgtVtQ==
