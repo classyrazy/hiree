@@ -132,6 +132,9 @@ console.log(useRoute().query)
 // getData()
 let routeParam = useRoute().params.id
 let routeQuery = useRoute().query.user_id
+let computedRouteQuery = computed(() => {
+    return routeQuery
+}) 
 
 let { submitData, loading, data } = useFormRequest(
     "api/hire/review/get-profile",
@@ -141,6 +144,10 @@ let { submitData, loading, data } = useFormRequest(
     (data) => {
         if (data) {
             console.log(data)
+            console.log(computedRouteQuery.value)
+            if(!computedRouteQuery.value){
+                useRouter().push(`/hiring/review/${routeParam}?user_id=${data.data[0].developer_array[0].id}`)
+            }
         }
     },
     (error) => {
@@ -148,6 +155,7 @@ let { submitData, loading, data } = useFormRequest(
         // loginError.value = error.response.data.error;
     }
 );
+console.log(computedRouteQuery.value)
 onMounted(() => submitData())
 </script>
   

@@ -88,8 +88,8 @@ import axios from "axios"
 
 let id = useRoute().params._id
 let loadingJob = ref(true)
-// let baseURL = "https://hiree-server.herokuapp.com/"
-let baseURL = "http://localhost:7000/"
+let baseURL = "https://hiree-server.herokuapp.com/"
+// let baseURL = "http://localhost:7000/"
 let applicationError = ref(null)
 let job = ref(null)
 let token = localStorage.getItem("USER_AUTH_TOKEN");

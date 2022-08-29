@@ -157,7 +157,7 @@ let { submitForm, loading, data } = useFormRequest(
         if(data){
             console.log(data.data.token)
             localStorage.setItem("USER_AUTH_TOKEN", data.data.token);
-            useRouter().push("/profile");
+            useRouter().push("/jobs");
         }
 
     },

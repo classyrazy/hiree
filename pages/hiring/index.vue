@@ -35,10 +35,10 @@ import JobHire from '../../components/UI/job-hire.vue'
 import axios from "axios"
 
 
-// let baseURL = "https://hiree-server.herokuapp.com/"
+let baseURL = "https://hiree-server.herokuapp.com/"
 let companyJobs = ref(null)
 let token = localStorage.getItem("USER_AUTH_TOKEN");
-let baseURL = "http://localhost:7000/"
+// let baseURL = "http://localhost:7000/"
 async function getData() {
     console.log(`${baseURL}api/hire/jobs`)
     try {

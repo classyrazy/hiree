@@ -21,7 +21,15 @@ interface Props {
 let props = defineProps<Props>()
 
 console.log(props.testArray)
-let developersArr = props.testArray
+let _developersArr = props.testArray
+let developersArr = []
+_developersArr.forEach(item => {
+    if (!developersArr.includes(item)) {
+        developersArr.push(item)
+    }
+}
+)
+console.log(developersArr)
 let skillsArr = props.skills
 onMounted(() => {
     console.log(props.testArray)
@@ -33,7 +41,17 @@ let { submitData, loading, data } = useFormRequest(
     { developersArr, skillsArr },
     (data) => {
         if (data) {
-            console.log(data)
+            // console.log(data)
+            // console.log([...new Set(data.data)])
+            // let unique = []
+            // data.data[0].forEach(item => {
+            //     if (!unique.includes(item)) {
+            //         unique.push(item)
+            //     }
+            // }
+            // console.log(unique)
+            // )
+            useRouter().push("/hiring/review/" + data.data.inserted_hashes[0])
         }
     },
     (error) => {
