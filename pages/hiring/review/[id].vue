@@ -1,5 +1,5 @@
 <template>
-    <div class=" h-screen justify-between bg-gray-200">
+    <div class=" justify-between bg-gray-200">
         <header class="fixed top-0 w-full px-10 py-6 flex justify-between items-center">
             <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
             <ul class="end-link gap-4 flex items-center">
@@ -11,18 +11,25 @@
             </ul>
         </header>
 
-        <main class="pt-24 bg-gray-100">
-            <div class="">
-                <div
-                    class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full left-[20px] top-[50%] cursor-pointer fixed">
+        <main class="pt-24 bg-gray-200">
+            <div class="bg-gray-200">
+                <div class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full left-[20px] top-[50%] cursor-pointer fixed"
+                    @click="handleClickLeft">
                     <left-icon></left-icon>
 
                 </div>
-                <div
-                    class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full right-[20px] top-[50%] cursor-pointer fixed">
+                <div class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full right-[20px] top-[50%] cursor-pointer fixed"
+                    @click="handleClickRight">
                     <right-icon></right-icon>
                 </div>
-                <developer :developer="currentDeveloper" v-if="currentDeveloper" class="w-[80%] bg-gray-100" />
+                <div class="">
+                    <developer :developer="computedCurrentDeveloper" v-if="!loading && currentDeveloper"
+                    :review="currentReview" class="w-[80%] bg-gray-100" />
+                <div class="flex justify-center my-10 items-center" v-if="loading">
+                    <LoaderIcon :size="50" color="#d53a9d" />
+                </div>
+                </div>
+
             </div>
         </main>
 
@@ -30,44 +37,52 @@
 
             <ul class="flex justify-center gap-6">
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(0)">
                         <span class="font-bold text-2xl">
                             <wrong-icon></wrong-icon>
                         </span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(4)">
                         <span class="font-bold text-2xl">4</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(5)">
                         <span class="font-bold text-2xl">5</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(6)">
                         <span class="font-bold text-2xl">6</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(7)">
                         <span class="font-bold text-2xl">7</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(8)">
                         <span class="font-bold text-2xl">8</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(9)">
                         <span class="font-bold text-2xl">9</span>
                     </div>
                 </li>
                 <li class="cursor-pointer">
-                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center">
+                    <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        @click="handleNumberClick(10)">
                         <span class="font-bold text-2xl">
                             <mark-icon></mark-icon>
                         </span>
@@ -80,6 +95,7 @@
 </template>
   
   <script setup lang="ts">
+import LoaderIcon from '../../../components/UI/svgs/loader-icon.vue'
 import Developer from '../../../components/Profile/developer.vue'
 import MarkIcon from '../../../components/icons/mark-icon.vue'
 import LeftIcon from '../../../components/icons/left-icon.vue'
@@ -130,13 +146,17 @@ console.log(useRoute().query)
 //     }
 // }
 // getData()
-let routeParam = useRoute().params.id
-let routeQuery = useRoute().query.user_id
+let routeParam = useRoute().path.split('/')[3]
+let routeQuery = useRoute().path.split('/')[4]
+
 let computedRouteQuery = computed(() => {
     return routeQuery
-}) 
+})
 let currentDeveloper = ref(null)
-
+let currentDeveloperId = ref(null)
+let currentReview = ref(null)
+let testArr = ref([])
+testArr.value.find
 let { submitData, loading, data } = useFormRequest(
     "api/hire/review/get-profile",
     true,
@@ -146,10 +166,13 @@ let { submitData, loading, data } = useFormRequest(
         if (data) {
             console.log(data)
             console.log(computedRouteQuery.value)
-            if(!computedRouteQuery.value){
-                useRouter().push(`/hiring/review/${routeParam}?user_id=${data.data.review[0].developer_array[0].id}`)
+            if (!routeQuery) {
+                useRouter().push(`/hiring/review/${routeParam}/${data.data.review[0].developer_array[0].id}`)
             }
             currentDeveloper.value = data.data.developer[0]
+            currentReview.value = data.data.review[0]
+            currentDeveloperId.value = currentReview.value.developer_array.map(developer => developer.id).indexOf(computedRouteQuery.value)
+            console.log({ hello: currentDeveloperId.value })
         }
     },
     (error) => {
@@ -158,7 +181,36 @@ let { submitData, loading, data } = useFormRequest(
     }
 );
 console.log(computedRouteQuery.value)
+let computedCurrentDeveloper = computed(() => {
+    return currentDeveloper.value
+})
 onMounted(() => submitData())
+function handleClickRight() {
+    if (currentDeveloperId.value < currentReview.value.developer_array.map(developer => developer.id).length - 1) {
+        currentDeveloperId.value++
+        console.log(currentReview.value.developer_array.map(developer => developer.id)[currentDeveloperId.value])
+        useRouter().push(`/hiring/review/${routeParam}/${currentReview.value.developer_array.map(developer => developer.id)[currentDeveloperId.value]}`)
+
+    }
+}
+function handleClickLeft() {
+    if (currentDeveloperId.value > 0) {
+        currentDeveloperId.value--
+        // console.log(currentDeveloperId.value)
+        useRouter().push(`/hiring/review/${routeParam}/${currentReview.value.developer_array.map(developer => developer.id)[currentDeveloperId.value]}`)
+
+    }
+}
+function handleNumberClick(num) {
+    console.log(num)
+    if (num == 0) {
+        console.log("Hello dismiss this user")
+    }
+    if (num == 10) {
+        console.log("Hello this user is good")
+    }
+}
+
 </script>
   
   <style scoped>
