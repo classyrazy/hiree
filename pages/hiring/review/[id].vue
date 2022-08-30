@@ -22,7 +22,7 @@
                     class="bg-[#D9D9D9] w-10 h-10 grid justify-center items-center rounded-full right-[20px] top-[50%] cursor-pointer fixed">
                     <right-icon></right-icon>
                 </div>
-                <developer class="w-[80%] bg-gray-100" />
+                <developer :developer="currentDeveloper" v-if="currentDeveloper" class="w-[80%] bg-gray-100" />
             </div>
         </main>
 
@@ -135,6 +135,7 @@ let routeQuery = useRoute().query.user_id
 let computedRouteQuery = computed(() => {
     return routeQuery
 }) 
+let currentDeveloper = ref(null)
 
 let { submitData, loading, data } = useFormRequest(
     "api/hire/review/get-profile",
@@ -146,8 +147,9 @@ let { submitData, loading, data } = useFormRequest(
             console.log(data)
             console.log(computedRouteQuery.value)
             if(!computedRouteQuery.value){
-                useRouter().push(`/hiring/review/${routeParam}?user_id=${data.data[0].developer_array[0].id}`)
+                useRouter().push(`/hiring/review/${routeParam}?user_id=${data.data.review[0].developer_array[0].id}`)
             }
+            currentDeveloper.value = data.data.developer[0]
         }
     },
     (error) => {

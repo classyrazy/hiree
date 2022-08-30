@@ -48,7 +48,7 @@ let searchJobValue = reactive({
 })
 let token = localStorage.getItem("USER_AUTH_TOKEN");
 async function getData() {
-    console.log(`${baseURL}api/hire/jobs`)
+    console.log(`${baseURL}api/hire/jobs/user`)
     try {
         loading.value = true
         let response = await axios.get(`${baseURL}api/hire/jobs`, {
