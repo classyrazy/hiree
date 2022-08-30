@@ -51,7 +51,7 @@ async function getData() {
     console.log(`${baseURL}api/hire/jobs/user`)
     try {
         loading.value = true
-        let response = await axios.get(`${baseURL}api/hire/jobs`, {
+        let response = await axios.get(`${baseURL}api/hire/jobs/user`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
