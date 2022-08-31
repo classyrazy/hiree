@@ -24,7 +24,7 @@
                 </div>
                 <div class="">
                     <developer :developer="computedCurrentDeveloper" v-if="!loading && currentDeveloper"
-                    :review="currentReview" class="w-[80%] bg-gray-100" />
+                    :review="currentReview" class="w-[80%]" />
                 <div class="flex justify-center my-10 items-center" v-if="loading">
                     <LoaderIcon :size="50" color="#d53a9d" />
                 </div>

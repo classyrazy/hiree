@@ -107,14 +107,14 @@
 
             <h2 class="text-xl mt-4 font-semibold">Skills</h2>
             <div class="flex gap-4 flex-wrap my-4">
-                <skills-pill>HTMl</skills-pill>
-                <skills-pill>CSS</skills-pill>
+                <skills-pill v-for ="skill in developer.skills">{{skill}}</skills-pill>
+                <!-- <skills-pill>CSS</skills-pill>
                 <skills-pill>JavaScript</skills-pill>
                 <skills-pill>React</skills-pill>
-                <skills-pill>React Native</skills-pill>
+                <skills-pill>React Native</skills-pill> -->
             </div>
             <h2 class="text-xl  my-6 font-semibold">Activities on Github</h2>
-            <div class=' grid grid-cols-2 gap-6'>
+            <div class=' grid grid-cols-2 gap-6 bg-gray-200'>
                 <img style="" class="img "
                     :src="`https://github-readme-stats.vercel.app/api?username=${computedDeveloperGithubUsername}&show_icons=true&theme=white`" />
 
