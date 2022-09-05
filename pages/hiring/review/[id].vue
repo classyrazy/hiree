@@ -4,9 +4,7 @@
             <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
             <ul class="end-link gap-4 flex items-center">
                 <li class="">
-                    <router-link to="/signup">
-                        <c-button size="medium">Done</c-button>
-                    </router-link>
+                        <c-button size="medium" @click="handleSubmitReview" :loading="loadingSubmitReview" >Done</c-button>
                 </li>
             </ul>
         </header>
@@ -24,10 +22,10 @@
                 </div>
                 <div class="">
                     <developer :developer="computedCurrentDeveloper" v-if="!loading && currentDeveloper"
-                    :review="currentReview" class="w-[80%]" />
-                <div class="flex justify-center my-10 items-center" v-if="loading">
-                    <LoaderIcon :size="50" color="#d53a9d" />
-                </div>
+                        :review="currentReview" class="w-[80%]" @skills-github="setCurrentSkillsGithub" />
+                    <div class="flex justify-center my-10 items-center" v-if="loading">
+                        <LoaderIcon :size="50" color="#d53a9d" />
+                    </div>
                 </div>
 
             </div>
@@ -36,7 +34,7 @@
         <footer class="fixed bottom-0 w-full py-6 bg-black font-monts">
 
             <ul class="flex justify-center gap-6">
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(0)">
                         <span class="font-bold text-2xl">
@@ -44,43 +42,43 @@
                         </span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(4)">
                         <span class="font-bold text-2xl">4</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(5)">
                         <span class="font-bold text-2xl">5</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(6)">
                         <span class="font-bold text-2xl">6</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(7)">
                         <span class="font-bold text-2xl">7</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(8)">
                         <span class="font-bold text-2xl">8</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(9)">
                         <span class="font-bold text-2xl">9</span>
                     </div>
                 </li>
-                <li class="cursor-pointer">
+                <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                         @click="handleNumberClick(10)">
                         <span class="font-bold text-2xl">
@@ -104,8 +102,9 @@ import CButton from '../../../components/UI/forms/c-button.vue'
 import WrongIcon from '../../../components/icons/wrong-icon.vue'
 import useFormRequest from '~/composables/useFormRequest'
 import axios from "axios"
+import { useHireStore } from "../../../store/hire"
 
-
+let store = useHireStore()
 
 let route = useRoute()
 let router = useRouter()
@@ -155,6 +154,7 @@ let computedRouteQuery = computed(() => {
 let currentDeveloper = ref(null)
 let currentDeveloperId = ref(null)
 let currentReview = ref(null)
+let currentSkillsGithub = ref(null)
 let testArr = ref([])
 testArr.value.find
 let { submitData, loading, data } = useFormRequest(
@@ -184,7 +184,11 @@ console.log(computedRouteQuery.value)
 let computedCurrentDeveloper = computed(() => {
     return currentDeveloper.value
 })
+let initialData = ref(null)
 onMounted(() => submitData())
+function setCurrentSkillsGithub(newSkills) {
+    currentSkillsGithub.value = newSkills
+}
 function handleClickRight() {
     if (currentDeveloperId.value < currentReview.value.developer_array.map(developer => developer.id).length - 1) {
         currentDeveloperId.value++
@@ -201,14 +205,53 @@ function handleClickLeft() {
 
     }
 }
+let ratedDet = reactive({
+    rating: 0,
+    devId: "",
+    github: null,
+
+})
+onMounted(() => {
+    initialData.value = store.reviewDetails
+    console.log(initialData.value)
+})
 function handleNumberClick(num) {
-    console.log(num)
-    if (num == 0) {
-        console.log("Hello dismiss this user")
+    // if(!currentSkillsGithub.value) return
+    
+    store.changeReviewDetails({
+        rating: num,
+        devId: routeQuery,
+        githubExplength: currentSkillsGithub.value ? currentSkillsGithub.value.length : 0,
+    })
+    
+    console.log(store.reviewDetails)
+}
+
+
+let computedReview = computed(() => {
+    return store.reviewDetails
+})
+let reviewDetails  = computedReview.value
+let { submitData: submitReview, loading: loadingSubmitReview } = useFormRequest(
+    "api/hire/review/submit-review",
+    true,
+    null,
+    { routeParam, reviewDetails },
+    (data) => {
+        if (data) {
+            console.log(data)
+            useRouter().push(`/hiring/review/result/${routeParam}`)
+        }
+    },
+    (error) => {
+        console.log(error)
+        // loginError.value = error.response.data.error;
     }
-    if (num == 10) {
-        console.log("Hello this user is good")
-    }
+);
+function handleSubmitReview(){
+    submitReview()
+
+
 }
 
 </script>

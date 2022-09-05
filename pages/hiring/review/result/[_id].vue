@@ -19,12 +19,11 @@
                 <h3>Lagos, Nigeria, Experience: 3 years</h3>
             </div>
 
-            <div class="flex flex-col gap-3">
+            <div class="flex items-center gap-3">
                 <c-button type="pry rounded-lg" :loading="loading" @click="submitHandler">Select
                 </c-button>
-                <router-link to="" class="cursor-pointer border text-center border-red-700 font-medium font-monts-alt text-md md:block p-3 rounded">
-                    View
-                </router-link>
+                <c-button type="b-pry-grad" :loading="loading" @click="submitHandler">View
+                </c-button>
             </div>
         </div>
 

@@ -72,7 +72,7 @@
 
             <div class="w-full h-1 bg-gray-300 "></div>
 
-            <h1 class="text-2xl m-2 font-bold">For your search</h1>
+            <h1 class="text-2xl m-2 font-bold">For your search </h1>
             <p class="m-2 text-lg mx-8">These are {{ developer.firstname }}'s interaction with the skills you are
                 looking for</p>
 
@@ -145,6 +145,7 @@ interface Props {
 }
 
 let props = defineProps<Props>()
+let emit  = defineEmits(["skillsGithub"])
 let userGithub = ref(null)
 let loadingGitRepos = ref(false)
 let computedDeveloperGithubUsername = computed(() => {
@@ -231,13 +232,16 @@ console.log(userGithub.value)
 let resGitRepos = ref(null)
 onMounted(async () => {
     resGitRepos.value = await getRepositoriesByLanguage(computedDeveloperGithubUsername.value)
+    if(resGitRepos.value){
+        emit("skillsGithub",resGitRepos.value)
+    }
 })
 
-watch(useRoute(), async () => {
-    console.log("ROuteChanged", props.developer.github)
-    userGithub.value = await getUserFromGithub(computedDeveloperGithubUsername.value)
-    resGitRepos.value = await getRepositoriesByLanguage(computedDeveloperGithubUsername.value)
-})
+// watch(useRoute(), async () => {
+//     console.log("ROuteChanged", props.developer.github)
+//     userGithub.value = await getUserFromGithub(computedDeveloperGithubUsername.value)
+//     resGitRepos.value = await getRepositoriesByLanguage(computedDeveloperGithubUsername.value)
+// })
 </script>
 
 <style>
