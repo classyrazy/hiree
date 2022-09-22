@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto font-monts pb-[250px] bg-gray-200">
+    <div class="container mx-auto font-monts pb-[250px] bg-gray-200" :class="type === 'profile'? 'p-8':''">
 
         <div class="md:flex no-wrap bg-gray-200">
 
@@ -35,16 +35,22 @@
                 <h1 class="text-3xl font-bold">About {{ developer.firstname }}</h1>
 
                 <div class="w-full h-[1px] bg-gray-200 mt-4"></div>
-                <div class="p-5 text-md w-full">
-                    <p class="textmd">{{ developer.whoAreYou }}</p>
+                <div class="block  md:flex justify-between w-full items-start">
+                    <div class="p-5 text-md w-full">
+                        <p class="text-md">{{ developer.whoAreYou }}</p>
 
-                    <p class="text-md">Here's a quick summary about me:</p>
-                    <p class="">😊 Pronouns: {{ developer.pronouns }} </p>
-                    <p class="" v-if="developer.funFact">💡 Fun fact: {{ developer.funFact }} <br /></p>
-                    <p class="" v-if="developer.skillsImprovement">🌱 Improving Skills:
-                        {{ developer.skillsImprovement }}</p>
-                    <p class="" v-if="developer.jobInterests">💼 Job interests: {{ developer.jobInterests }}</p>
-
+                        <p class="text-md">Here's a quick summary about me:</p>
+                        <p class="">😊 Pronouns: {{ developer.pronouns }} </p>
+                        <p class="" v-if="developer.funFact">💡 Fun fact: {{ developer.funFact }} <br /></p>
+                        <p class="" v-if="developer.skillsImprovement">🌱 Improving Skills:
+                            {{ developer.skillsImprovement }}</p>
+                        <p class="" v-if="developer.jobInterests">💼 Job interests: {{ developer.jobInterests }}</p>
+                            
+                    </div>
+                    <!-- {{developer.email}} -->
+                    <a :href="`mailto:${developer.email}`" v-if="type === 'profile'">
+                        <c-button class="text-center w-full mx-auto md:w-auto">Contact</c-button>
+                    </a>
                 </div>
                 <div class=" mx-8">
                     <ul class="flex gap-20 mt-3 flex-wrap">
@@ -69,32 +75,34 @@
         </div>
 
         <div class="w-full bg-gray-200 py-6 ">
+            <div class="" v-if="type === 'hiring'">
 
-            <div class="w-full h-1 bg-gray-300 "></div>
+                <div class="w-full h-1 bg-gray-300 "></div>
 
-            <h1 class="text-2xl m-2 font-bold">For your search </h1>
-            <p class="m-2 text-lg mx-8">These are {{ developer.firstname }}'s interaction with the skills you are
-                looking for</p>
+                <h1 class="text-2xl m-2 font-bold">For your search </h1>
+                <p class="m-2 text-lg mx-8">These are {{ developer.firstname }}'s interaction with the skills you are
+                    looking for</p>
 
-            <!-- {{ resGitRepos }} -->
-            <div class="grid lg:flex flex-wrap gap-6 mx-8">
-                <div class="flex flex-col gap-6" v-for="skill in review.skills_selected">
-                    <h2 class="text-xl font-semibold">{{ skill }}</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                        v-if="!loadingGitRepos && resGitRepos">
-                        <div class="" v-for="(lang, idx) in resGitRepos" :key="idx">
-                            <div class="py-2 px-3 border-gray-300 rounded-lg bg-white">
-                                <a target="_blank" :href="lang.repo.url"
-                                    class="font-bold text-lg underline text-blue-500 mb-3 ">{{ lang.repo.name }}</a>
-                                <p class="text-sm">{{ lang.repo.description }}</p>
-                                <span class="inline-block bg-gray-100 px-2 py-1 rounded-md my-2 mx-2"
-                                    v-for="(skillLang, idx) in lang.languages" :key="idx">{{ skillLang.language
-                                    }}</span>
+                <!-- {{ resGitRepos }} -->
+                <div class="grid lg:flex flex-wrap gap-6 mx-8">
+                    <div class="flex flex-col gap-6" v-for="skill in review.skills_selected">
+                        <h2 class="text-xl font-semibold">{{ skill }}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                            v-if="!loadingGitRepos && resGitRepos">
+                            <div class="" v-for="(lang, idx) in resGitRepos" :key="idx">
+                                <div class="py-2 px-3 border-gray-300 rounded-lg bg-white">
+                                    <a target="_blank" :href="lang.repo.url"
+                                        class="font-bold text-lg underline text-blue-500 mb-3 ">{{ lang.repo.name }}</a>
+                                    <p class="text-sm">{{ lang.repo.description }}</p>
+                                    <span class="inline-block bg-gray-100 px-2 py-1 rounded-md my-2 mx-2"
+                                        v-for="(skillLang, idx) in lang.languages" :key="idx">{{ skillLang.language
+                                        }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex justify-center my-10 items-center" v-if="loadingGitRepos">
-                        <LoaderIcon :size="50" color="#d53a9d" />
+                        <div class="flex justify-center my-10 items-center" v-if="loadingGitRepos">
+                            <LoaderIcon :size="50" color="#d53a9d" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,7 +115,7 @@
 
             <h2 class="text-xl mt-4 font-semibold">Skills</h2>
             <div class="flex gap-4 flex-wrap my-4">
-                <skills-pill v-for ="skill in developer.skills">{{skill}}</skills-pill>
+                <skills-pill v-for="skill in developer.skills">{{skill}}</skills-pill>
                 <!-- <skills-pill>CSS</skills-pill>
                 <skills-pill>JavaScript</skills-pill>
                 <skills-pill>React</skills-pill>
@@ -130,6 +138,7 @@
 </template>
 
 <script setup lang="ts">
+import CButton from '../UI/forms/c-button.vue'
 import LoaderIcon from '../UI/svgs/loader-icon.vue'
 import SkillsPill from './skills-pill.vue'
 import JobTypeIcon from '../icons/job-type-icon.vue'
@@ -141,19 +150,21 @@ import GithubIcon from '../icons/github-icon.vue'
 
 interface Props {
     developer: object
-    review: object
+    review: object,
+    type: "hiring" | "profile"
 }
 
-let props = defineProps<Props>()
-let emit  = defineEmits(["skillsGithub"])
+// let props = defineProps<Props>()
+let props = withDefaults(defineProps<Props>(), {
+    type: 'hiring',
+})
+let emit = defineEmits(["skillsGithub"])
 let userGithub = ref(null)
 let loadingGitRepos = ref(false)
 let computedDeveloperGithubUsername = computed(() => {
-    console.log(props.developer.github.split('/'))
     return props.developer.github.split('/')[3]
 
 })
-console.log(computedDeveloperGithubUsername.value)
 let computedDeveloperuser = computed(() => {
     return userGithub.value
 })
@@ -162,13 +173,13 @@ async function getUserFromGithub(username) {
     // .then(res => res.json())
     let req = await fetch(`https://api.github.com/users/${username}`)
     let data = await req.json()
-    console.log(data)
     return data
 }
 let skillsSelectedArr = ref([])
 let testArr = ref([])
 
 async function getRepositoriesByLanguage(username) {
+    if (props.type !== 'hiring') return
     loadingGitRepos.value = true
     let req = await fetch(`https://api.github.com/users/${username}/repos?language:vue`)
     let data = await req.json()
@@ -197,7 +208,7 @@ async function getRepositoriesByLanguage(username) {
     currentReviewSkills.forEach((skill, idx) => {
         for (let languageObj of languagesArr) {
             if (languageObj.languages) {
-                console.log(skill, languageObj.languages[skill])
+                // console.log(skill, languageObj.languages[skill])
                 Object.keys(languageObj.languages).map(key => {
                     if (key.toLowerCase() === skill.toLowerCase()) {
                         testArr.value.push({
@@ -228,12 +239,12 @@ let computedGithubRes = computed(() => {
 // if(computedDeveloperGithubUsername){
 // console.log(computedDeveloperGithubUsername)
 userGithub.value = await getUserFromGithub(computedDeveloperGithubUsername.value)
-console.log(userGithub.value)
+// console.log(userGithub.value)
 let resGitRepos = ref(null)
 onMounted(async () => {
     resGitRepos.value = await getRepositoriesByLanguage(computedDeveloperGithubUsername.value)
-    if(resGitRepos.value){
-        emit("skillsGithub",resGitRepos.value)
+    if (resGitRepos.value) {
+        emit("skillsGithub", resGitRepos.value)
     }
 })
 
@@ -245,4 +256,5 @@ onMounted(async () => {
 </script>
 
 <style>
+
 </style>
