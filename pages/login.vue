@@ -142,7 +142,6 @@ let { submitForm, loading, data } = useFormRequest(
 );
 let submitHandler = () => {
     validate();
-    console.log({ formReactive });
 
     if (validate()) {
         submitForm()

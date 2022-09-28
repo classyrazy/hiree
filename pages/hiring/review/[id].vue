@@ -1,6 +1,6 @@
 <template>
     <div class=" justify-between bg-gray-200">
-        <header class="fixed top-0 w-full px-10 py-6 flex justify-between items-center">
+        <header class="fixed top-0 w-full px-4 md:px-10 py-6 flex justify-between items-center bg-gray-200">
             <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
             <ul class="end-link gap-4 flex items-center">
                 <li class="">
@@ -8,6 +8,7 @@
                 </li>
             </ul>
         </header>
+        <formError :error-msg="reviewDevError" @close-error="reviewDevError = null" class="center-middle"></formError>
 
         <main class="pt-24 bg-gray-200">
             <div class="bg-gray-200">
@@ -26,22 +27,28 @@
                     <div class="flex justify-center my-10 items-center" v-if="loading">
                         <LoaderIcon :size="50" color="#d53a9d" />
                     </div>
+                    <div class="flex justify-center my-10 items-center flex-col gap-4"
+                        v-else-if="!loading && !currentDeveloper ">
+                        <h2 class="font-monts text-xl fext-semibold">Could not get developer profile</h2>
+                        <c-button size="medium" @click="submitData">Retry
+                        </c-button>
+                    </div>
                 </div>
 
             </div>
         </main>
 
-        <footer class="fixed bottom-0 w-full py-6 bg-black font-monts">
+        <footer class="fixed bottom-0 w-full py-4 bg-black font-monts">
             <!-- {{currentRatingGiven}} -->
-            <ul class="flex justify-center gap-6">
+            <ul class="flex justify-center gap-4 md:gap-6">
                 <li class="" :class="currentSkillsGithub ? 'cursor-pointer' : 'cursor-not-allowed'">
                     <div class="relative">
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 0? 'block':'hidden'"></div>
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(0)">
-                            <span class="font-bold text-2xl">
-                                <wrong-icon></wrong-icon>
+                            <span class="font-bold text-lg md:text-2xl">
+                                <wrong-icon class="w-6 h-6 md:w-auto md:h-auto "></wrong-icon>
                             </span>
                         </div>
                     </div>
@@ -50,9 +57,9 @@
                     <div class="relative">
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 4? 'block':'hidden'"></div>
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(4)">
-                            <span class="font-bold text-2xl">4</span>
+                            <span class="font-bold text-lg md:text-2xl">4</span>
                         </div>
                     </div>
                 </li>
@@ -61,9 +68,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 5? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(5)">
-                            <span class="font-bold text-2xl">5</span>
+                            <span class="font-bold text-lg md:text-2xl">5</span>
                         </div>
                     </div>
                 </li>
@@ -72,9 +79,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 6? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(6)">
-                            <span class="font-bold text-2xl">6</span>
+                            <span class="font-bold text-lg md:text-2xl">6</span>
                         </div>
                     </div>
                 </li>
@@ -83,9 +90,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 7? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(7)">
-                            <span class="font-bold text-2xl">7</span>
+                            <span class="font-bold text-lg md:text-2xl">7</span>
                         </div>
                     </div>
                 </li>
@@ -94,9 +101,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 8? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(8)">
-                            <span class="font-bold text-2xl">8</span>
+                            <span class="font-bold text-lg md:text-2xl">8</span>
                         </div>
                     </div>
                 </li>
@@ -105,9 +112,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 9? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(9)">
-                            <span class="font-bold text-2xl">9</span>
+                            <span class="font-bold text-lg md:text-2xl">9</span>
                         </div>
                     </div>
                 </li>
@@ -116,9 +123,9 @@
                         <div class="w-3 h-3 rounded-full absolute bg-white right-1 top-0"
                             :class="currentReviewNumGiven == 10? 'block':'hidden'"></div>
 
-                        <div class="w-14 h-14 bg-[#D9D9D9] rounded-full grid justify-center items-center"
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-[#D9D9D9] rounded-full grid justify-center items-center"
                             @click="handleNumberClick(10)">
-                            <span class="font-bold text-2xl">
+                            <span class="font-bold text-lg md:text-2xl">
                                 <mark-icon></mark-icon>
                             </span>
                         </div>
@@ -131,6 +138,7 @@
 </template>
   
 <script setup lang="ts">
+import FormError from '../../../components/UI/form-error.vue'
 import LoaderIcon from '../../../components/UI/svgs/loader-icon.vue'
 import Developer from '../../../components/Profile/developer.vue'
 import MarkIcon from '../../../components/icons/mark-icon.vue'
@@ -152,37 +160,9 @@ let router = useRouter()
 // }
 
 // let props = defineProps<Props>()
-console.log(useRoute().params)
-console.log(useRoute().query)
-
+let reviewDevError = ref(null)
 // let loadingProfile = ref(true)
-// // let baseURL = "https://hiree-server.herokuapp.com/"
-// let baseURL = "http://localhost:7000/"
-// let applicationError = ref(null)
-// let profile = ref(null)
-// let token = localStorage.getItem("USER_AUTH_TOKEN");
-// async function getData() {
-//     console.log(`${baseURL}api/hire/`)
-//     try {
-//         loadingProfile.value = true
-//         let response = await axios.get(`${baseURL}api/jobs/:id`, {
-//             headers: {
-//                 'Authorization': `Bearer ${token}`
-//             },
-//             params: {
-//                 id: id
-//             }
-//         })
-//         console.log(response)
-//         // return response.data
-//         loadingJob.value = false
-//         job.value = response.data[0]
-//     } catch (error) {
-//         loadingJob.value = false
-//         console.log(error)
-//     }
-// }
-// getData()
+let profileError = ref("")
 let routeParam = useRoute().path.split('/')[3]
 let routeQuery = useRoute().path.split('/')[4]
 
@@ -196,30 +176,27 @@ let currentReview = ref(null)
 let currentSkillsGithub = ref(null)
 let testArr = ref([])
 let currentRatingGiven = computed(() => {
-    if (process.client) {
+    let reviewDetailId = JSON.parse(localStorage.getItem("REVIEW_DETAILS_ID"))
+    if (reviewDetailId == routeParam) {
         if (JSON.parse(localStorage.getItem("REVIEW_DETAILS"))) {
             let arrRev = JSON.parse(localStorage.getItem("REVIEW_DETAILS"))
             let testRes = arrRev.map(rev => rev.devId).indexOf(computedRouteQuery.value)
-            console.log({ arrRev })
             return arrRev[testRes]
-        } return null
+        }
+        return null
+    } else {
+        return null
     }
 })
-console.log(currentRatingGiven.value)
 onMounted(() => {
-    currentReviewNumGiven.value = currentRatingGiven.value ? currentRatingGiven.value.rating : null
+    let reviewDetailId = JSON.parse(localStorage.getItem("REVIEW_DETAILS_ID"))
+    if (reviewDetailId == routeParam) {
+
+        currentReviewNumGiven.value = currentRatingGiven.value ? currentRatingGiven.value.rating : null
+    } else {
+        currentReviewNumGiven.value = null
+    }
 })
-// let currentRatingGivenNum = computed(() => {
-//     switch (currentRatingGiven.value.rating) {
-//         case 0:
-//             return 0;
-//         case "1":
-//             return 1;
-//         case "2":
-//             return 2;
-//         case 
-//     }
-// })
 let { submitData, loading, data } = useFormRequest(
     "api/hire/review/get-profile",
     true,
@@ -228,37 +205,56 @@ let { submitData, loading, data } = useFormRequest(
     (data) => {
         if (data) {
             let currentReviewGoingOn = JSON.parse(localStorage.getItem("CURRENT_REVIEW"))
-            console.log({ currentReviewGoingOn })
+            let reviewDetailId = JSON.parse(localStorage.getItem("REVIEW_DETAILS_ID"))
             let crv: object[] = JSON.parse(localStorage.getItem("REVIEW_DETAILS"))
             let redCRV = []
             if (crv) {
                 redCRV = crv.pop().devId
             }
             if (!routeQuery) {
-                if (currentReviewGoingOn.currentReview === routeParam) {
-                    console.log("this is the current review you have been doing")
-                    console.log(redCRV)
+                if (reviewDetailId === routeParam) {
                     useRouter().push(`/hiring/review/${routeParam}/${redCRV}`)
                 } else {
                     useRouter().push(`/hiring/review/${routeParam}/${data.data.review[0].developer_array[0].id}`)
 
                 }
             }
+            store.addNewSavedData(routeQuery, data.data);
             currentDeveloper.value = data.data.developer[0]
             currentReview.value = data.data.review[0]
             currentDeveloperId.value = currentReview.value.developer_array.map(developer => developer.id).indexOf(computedRouteQuery.value)
         }
     },
     (error) => {
-        console.log(error)
-        // loginError.value = error.response.data.error;
+        if (error.response.data.error) {
+            reviewDevError.value = error.response.data.error;
+        } else {
+            reviewDevError.value = error.message;
+        }
     }
 );
 let computedCurrentDeveloper = computed(() => {
     return currentDeveloper.value
 })
+let computedSavedData = computed(() => {
+    return store.savedData
+})
 let initialData = ref([])
-onMounted(() => submitData())
+function initPage() {
+    if (store.savedData.has(routeQuery)) {
+        let savedData = store.savedData.get(routeQuery)
+        currentDeveloper.value = savedData.developer[0]
+        currentReview.value = savedData.review[0]
+        currentDeveloperId.value = currentReview.value.developer_array.map(developer => developer.id).indexOf(computedRouteQuery.value)
+    } else {
+        submitData()
+
+    }
+}
+onMounted(() => {
+    // submitData()
+    initPage()
+})
 function setCurrentSkillsGithub(newSkills) {
     currentSkillsGithub.value = newSkills
 }
@@ -295,7 +291,6 @@ let currentDeveloperTheyRated = computed(() => {
     }
     return routeQuery
 })
-console.log({ currentDeveloperTheyRated })
 let currentReviewHiring = reactive({
     currentReview: routeParam,
     currentDeveloper: currentDeveloperTheyRated.value
@@ -307,7 +302,7 @@ function handleNumberClick(num) {
         rating: num,
         devId: routeQuery,
         githubExplength: currentSkillsGithub.value ? currentSkillsGithub.value.length : 0,
-    })
+    }, routeParam)
 
 }
 // function handleMarkClick(){
@@ -317,7 +312,7 @@ function handleNumberClick(num) {
 let computedReview = computed(() => {
     return store.reviewDetails
 })
-let reviewDetails = computedReview.value
+let reviewDetails = ref(null)
 let { submitData: submitReview, loading: loadingSubmitReview } = useFormRequest(
     "api/hire/review/submit-review",
     true,
@@ -329,23 +324,34 @@ let { submitData: submitReview, loading: loadingSubmitReview } = useFormRequest(
         }
     },
     (error) => {
-        console.log(error)
-        // loginError.value = error.response.data.error;
+        if (error.response.data.error) {
+            reviewDevError.value = error.response.data.error;
+        } else {
+            reviewDevError.value = error.message;
+        }
     }
 );
 function handleSubmitReview() {
+    reviewDetails.value = routeParam !== JSON.parse(localStorage.getItem("REVIEW_DETAILS_ID")) ? null : JSON.parse(localStorage.getItem("REVIEW_DETAILS"))
+    if (!reviewDetails.value) {
+        reviewDevError.value = "You have not rated any developer yet"
+        return
+    }
     submitReview()
-
 }
 
 watchEffect(() => {
-    console.log("Things are changing", currentReviewHiring)
     localStorage.setItem("CURRENT_REVIEW", JSON.stringify(currentReviewHiring))
 })
 
 </script>
   
 <style scoped>
-
+.center-middle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>
   

@@ -7,28 +7,25 @@
                 Go to dashboard
             </router-link>
         </nav>
-
         <div
             class="flex relative h-screen px-[15px] py-[20px] lg:px-[210px] items-start mb-12 flex-col screen font-monts">
 
             <h1 class="font-semibold  text-3xl my-6">Make your final choice</h1>
             <!-- {{reviewData}} -->
             <!-- <div class="" v-if="reviewData"> -->
-            <reviewed-dev-hire class="my-2" v-for="(det, idx) in  reviewData" :rate-details="det.result" :dev-idx="idx"
-                :reviewed-dev="det.developer" @open-modal="handleOpenModal"></reviewed-dev-hire>
-            <dev-profile v-if="reviewData && showModal" :details="reviewData[computedDevIdx].developer" @close-modal="handleCloseModal"></dev-profile>
+            <div class="">
+                <reviewed-dev-hire class="my-2" v-for="(det, idx) in  reviewData" :rate-details="det.result"
+                    :dev-idx="idx" :reviewed-dev="det.developer" @open-modal="handleOpenModal"></reviewed-dev-hire>
+                    
+            </div>
+            <dev-profile v-if="reviewData && showModal" :details="reviewData[computedDevIdx].developer"
+                @close-modal="handleCloseModal"></dev-profile>
 
             <!-- </div> -->
-
-
             <c-button type="pry rounded-lg" class="my-4" :loading="loading" @click="submitHandler" size="big">Choose
                 random
             </c-button>
-
-
-
         </div>
-
 
     </div>
 </template>
@@ -42,7 +39,6 @@ import useFormRequest from '~/composables/useFormRequest'
 let resultError = ref(null)
 let showModal = ref(false)
 let reviewData = ref(null)
-console.log(useRoute().params._id)
 let routeParam = useRoute().params._id
 let { submitData, loading, data } = useFormRequest(
     `api/hire/review/result/${routeParam}`,

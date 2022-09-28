@@ -153,9 +153,7 @@ let { submitForm, loading, data } = useFormRequest(
     formReactive,
     null,
     (data) => {
-        console.log(data)
         if(data){
-            console.log(data.data.token)
             localStorage.setItem("USER_AUTH_TOKEN", data.data.token);
             useRouter().push("/developers/create-profile");
         }
@@ -168,7 +166,6 @@ let { submitForm, loading, data } = useFormRequest(
 );
 let submitHandler = () => {
     validate();
-    console.log({ formReactive });
 
     if (validate()) {
         submitForm()

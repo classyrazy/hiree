@@ -14,8 +14,8 @@ export default function useFormRequest(
 ) {
     let refedForm = ref(form);
     let serverForm = null;
-    // let baseURL = "https://hiree-server.herokuapp.com/"
-    let baseURL = "http://localhost:7000/"
+    let baseURL = "https://hiree-server.herokuapp.com/"
+    // let baseURL = "http://localhost:7000/"
     let token = localStorage.getItem("USER_AUTH_TOKEN");
 
     if (form) {
@@ -43,11 +43,9 @@ export default function useFormRequest(
         if (postData) return;
         if (loading.value) return;
         loading.value = true;
-        console.log(form ?? postData);
 
         try {
             let req = null
-            console.log(`${baseURL}${service}`)
             //   let req = new Graph().service(service);
             if (auth) {
                 // if (!token) {
@@ -77,7 +75,7 @@ export default function useFormRequest(
         let toServerData = ref(postData);
         try {
             let req = null
-            console.log(`${baseURL}${service}`)
+            // console.log(`${baseURL}${service}`)
             //   let req = new Graph().service(service);
             if (auth) {
                 // if (!token) {
@@ -90,7 +88,7 @@ export default function useFormRequest(
                 req = axios.post(`${baseURL}${service}`, toServerData.value);
             }
             data.value = await req;
-            console.log(data.value);
+            // console.log(data.value);
             clearError();
         } catch (error) {
             if (typeof errorFunc == "function") await errorFunc(error);

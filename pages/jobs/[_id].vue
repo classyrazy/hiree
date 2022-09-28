@@ -22,13 +22,12 @@
                             <div class="flex gap-2"><span>
                                     <location-icon bg-color="#000"></location-icon>
                                 </span>
-                                <p class="text-md font-monts font-medium">Lagos Nigeria</p>
+                                <p class="text-md font-monts font-medium">{{computedJob.company_location}}</p>
                             </div>
                             <div class="flex gap-2"><span>
                                     <salary-icon bg-color="#000"></salary-icon>
                                 </span>
-                                <p class="text-md font-monts font-medium">£60000 - £90000 per annum + bonus, stock
-                                    options, pension</p>
+                                <p class="text-md font-monts font-medium">{{ computedJob.benefits }}</p>
                             </div>
                         </div>
                         <div class="flex gap-6 flex-wrap">
@@ -94,7 +93,6 @@ let applicationError = ref(null)
 let job = ref(null)
 let token = localStorage.getItem("USER_AUTH_TOKEN");
 async function getData() {
-    console.log(`${baseURL}api/hire/jobs`)
     try {
         loadingJob.value = true
         let response = await axios.get(`${baseURL}api/jobs/:id`, {
@@ -105,8 +103,6 @@ async function getData() {
                 _id: id
             }
         })
-        console.log(response)
-        // return response.data
         loadingJob.value = false
         job.value = response.data[0]
     } catch (error) {
@@ -118,17 +114,14 @@ getData()
 let computedJob = computed(() => {
     return job.value
 })
-console.log(useRoute().params._id)
 let { submitData, loading, data } = useFormRequest(
     "api/jobs/apply",
     true,
     null,
     { id },
     (data) => {
-        console.log(data)
         if (data) {
-            console.log(data)
-            // useRouter().push("/jobs");
+            useRouter().push("/jobs");
         }
 
     },

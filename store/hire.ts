@@ -4,25 +4,21 @@ import { ref, reactive, watch } from "vue";
 export const useHireStore = defineStore("hire", () => {
     let reviewDetails = reactive([])
     let currentReview = ref(null)
+    let fetchedDataCached = reactive(new Map())
+    let savedData = reactive(new Map())
+    let devData = reactive(new Map())
     if (localStorage.getItem("CURRENT_REVIEW")) {
-        console.log(currentReview.value)
         currentReview.value = JSON.parse(localStorage.getItem("CURRENT_REVIEW"))
     }
     if (localStorage.getItem("REVIEW_DETAILS")) {
-        console.log(reviewDetails)
         reviewDetails = JSON.parse(localStorage.getItem("REVIEW_DETAILS"))
     }
-    // watch(reviewDetails, (details) => {
-    //     console.log("Hello This has changed", details)
-    //     localStorage.setItem("REVIEW_DETAILS", JSON.stringify(details))
-    // })
-    // watchEffect(()=> {
-    //     console.log("Hello This has changed", reviewDetails)
-    // })
-    function changeReviewDetails(newUser: { devId: string, rating: number, githubExplength: number }) {
+    function changeReviewDetails(newUser: { devId: string, rating: number, githubExplength: number }, reviewId: string) {
         // console.log(reviewDetails, "hello", newUser)
+        if(reviewId !== JSON.parse(localStorage.getItem("REVIEW_DETAILS_ID"))){
+            reviewDetails = []
+        }
         if (reviewDetails.length > 0) {
-            console.log(reviewDetails, "hello", newUser)
             const index = reviewDetails.findIndex(devDet => devDet.devId == newUser.devId)
             if (index !== -1) {
                 reviewDetails[index] = newUser
@@ -32,19 +28,34 @@ export const useHireStore = defineStore("hire", () => {
             // return
         }
         else {
-            console.log("hello World")
             reviewDetails.push(newUser)
         }
         localStorage.setItem("REVIEW_DETAILS", JSON.stringify(reviewDetails))
+        localStorage.setItem("REVIEW_DETAILS_ID", JSON.stringify(reviewId))
     }
     function changeCurrentReview(reviewId: string) {
         currentReview.value = reviewId
+    }
+    function addNewFetchedData(key: string, data: any) {
+        fetchedDataCached.set(key, data)
+    }
+    function addNewSavedData(key: string, data: any) {
+        savedData.set(key, data)
+    }
+    function addNewDevData(key: string, data: any) {
+        devData.set(key, data)
     }
 
     return {
         reviewDetails,
         changeReviewDetails,
         currentReview,
-        changeCurrentReview
+        changeCurrentReview,
+        fetchedDataCached,
+        savedData,
+        addNewFetchedData,
+        addNewSavedData,
+        devData,
+        addNewDevData
     }
 })

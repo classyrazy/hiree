@@ -8,19 +8,21 @@
 
         </div>
     </div>
+    <formError :error-msg="testCompoError" @close-error="testCompoError = null"></formError>
+
 </template>
   
   <script setup lang="ts">
+import FormError from './UI/form-error.vue'
 import CButton from './UI/forms/c-button.vue'
 import useFormRequest from '~/composables/useFormRequest'
 interface Props {
     testArray: string[];
     skills: string[];
 }
-
+let testCompoError = ref(null)
 let props = defineProps<Props>()
 
-console.log(props.testArray)
 let _developersArr = props.testArray
 let developersArr = []
 _developersArr.forEach(item => {
@@ -29,10 +31,8 @@ _developersArr.forEach(item => {
     }
 }
 )
-console.log(developersArr)
 let skillsArr = props.skills
 onMounted(() => {
-    console.log(props.testArray)
 })
 let { submitData, loading, data } = useFormRequest(
     "api/hire/review/create",
@@ -56,7 +56,7 @@ let { submitData, loading, data } = useFormRequest(
     },
     (error) => {
         console.log(error)
-        // loginError.value = error.response.data.error;
+        // testCompoError.value = error.response.data.error;
     }
 );
 </script>

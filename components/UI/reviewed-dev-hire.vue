@@ -1,6 +1,9 @@
 <template>
     <div class="border border-[#d53a9d] p-4 rounded-md w-full">
-        <h2 class="font-bold text-md">{{rateDetails.rating}}</h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-bold text-md">{{rateDetails.rating}}</h2>
+            <mark-icon :size="20" v-if="rateDetails.rating == 10"></mark-icon>
+        </div>
         <div class="flex justify-between">
             <div class="det">
                 <div class="flex gap-4 items-center my-2">
@@ -22,7 +25,7 @@
                 <c-button type="b-pry-grad" size="small" @click="viewDeveloper(devIdx)"> View</c-button>
                 <!-- </router-link> -->
                 <a :href="`mailto:${reviewedDev.email}`" class="">
-                <c-button size="small">Contact</c-button>
+                    <c-button size="small">Contact</c-button>
                 </a>
             </div>
         </div>
@@ -31,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import MarkIcon from '../icons/mark-icon.vue'
 import CButton from './forms/c-button.vue'
 import SkillsPill from '../Profile/skills-pill.vue';
 // import { useModal } from "vue-modally-v3";
@@ -48,8 +52,8 @@ let props = withDefaults(defineProps<Props>(), {
 })
 let emit = defineEmits(['openModal'])
 function viewDeveloper(modalIdx) {
-    console.log({modalIdx})
-    emit('openModal', modalIdx)   
+    console.log({ modalIdx })
+    emit('openModal', modalIdx)
 }
 </script>
 

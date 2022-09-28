@@ -368,14 +368,12 @@ let { submitForm, loading, data } = useFormRequest(
     formReactive,
     null,
     (data) => {
-        console.log(data)
         if(data){
             useRouter().push("/jobs");
         }
 
     },
     (error) => {
-        console.log(error)
     if(error.response.data.error){
         createProfileError.value = error.response.data.error;
     } else{

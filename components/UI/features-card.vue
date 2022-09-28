@@ -41,7 +41,6 @@ let _class = computed(() => {
   let __class = `bg-[${color.value}]`;
   return __class
 })
-console.log(props.iconColor)
 </script>
 
 <style scoped>
