@@ -13,7 +13,7 @@
 
 
                 <div
-                    class="grid grid-auto md:grid-cols-4 w-full justify-center lg:grid-cols-6 gap-8 max-w-[1000px] my-4">
+                    class="grid grid-auto md:grid-cols-4 grid-cols-3 w-full justify-center lg:grid-cols-6 gap-8 max-w-[1000px] my-4">
 
                     <!-- skills list -->
                     <!-- {{skillsItems}} -->
