@@ -172,6 +172,7 @@ function handleSkillClick(skillObj) {
         skillObj.active = true
         skills.push(skillObj.name.toLowerCase())
     }
+    formReactive.skills.value = skills
 
 }
 
@@ -196,6 +197,7 @@ function removePill(index) {
             item.active = false
         }
     })
+    formReactive.skills.value = skills
 }
 let developersArr = reactive([])
 let { submitForm, loading, data } = useFormRequest(

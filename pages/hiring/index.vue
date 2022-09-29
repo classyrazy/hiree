@@ -24,7 +24,6 @@
                 <div class="flex flex-col justify-center my-10 items-center"
                     v-else-if="!loadingJobs && computedCompanyJobs && computedCompanyJobs.length== 0">
                     <h2 class="font-monts text-xl fext-semibold">You have not created any job yet</h2>
-                    <c-button> Create Jobs</c-button>
                 </div>
                 
             </div>
@@ -39,7 +38,6 @@
                 <div class="flex flex-col justify-center my-10 items-center"
                     v-else-if="!loadingJobs && computedCompanyReviews && computedCompanyReviews.length== 0">
                     <h2 class="font-monts text-xl fext-semibold">You have not done any review</h2>
-                    <c-button> Create Jobs</c-button>
                 </div>
                 
             </div>
