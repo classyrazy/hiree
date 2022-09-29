@@ -5,7 +5,7 @@
                 <div class="">
                     <div class="image overflow-hidden">
                         <img class="h-auto rounded-full w-full max-w-[300px] mx-auto my-4"
-                            :src="computedDeveloperuser.avatar_url" alt="github picture" />
+                            :src="developer.githubUserData.avatar_url" alt="github picture" />
                     </div>
                     <h1 class="text-gray-900 font-bold text-xl text-center leading-8 my-1">
                         {{ developer.firstname }} {{ developer.lastname }}
@@ -277,9 +277,9 @@ async function getRepositoriesByLanguage(username) {
 let computedGithubRes = computed(() => {
     return testArr.value;
 });
-userGithub.value = await getUserFromGithub(
-    computedDeveloperGithubUsername.value
-);
+// userGithub.value = await getUserFromGithub(
+//     computedDeveloperGithubUsername.value
+// );
 let resGitRepos = ref(null);
 let computedDevData = computed(() => {
     return store.devData;
