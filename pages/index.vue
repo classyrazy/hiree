@@ -15,7 +15,7 @@
                         <c-button>Start Hiring</c-button>
 
                     </router-link>
-                    <router-link to="/signup"><c-button type="b-pry-grad">Apply as a developer</c-button></router-link>
+                    <router-link to="/jobs"><c-button type="b-pry-grad">View jobs</c-button></router-link>
                 </div>
             </div>
 

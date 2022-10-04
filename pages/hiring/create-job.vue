@@ -1,7 +1,7 @@
 <template>
     <div>
         <nav class="flex px-[15px] py-[20px] lg:px-10 justify-between items-center">
-            <router-link to="/"><img src="/logo.svg" alt="logo" /></router-link>
+            <router-link to="/hiring"><img src="/logo.svg" alt="logo" /></router-link>
             <router-link to="/hiring/select-skills"
                 class="cursor-pointer border border-red-700 font-medium font-monts-alt text-md md:block p-3 rounded">
                 Find developers
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <h1 class="tracking-normal min-w-[78px] min-h-[17px] required">
-                                Company name
+                                Company Location
                             </h1>
                             <c-input type="text" class="form-control w-full text-medium rounded-lg" full
                                 styleType="white" placeholder="Enter company location eg. Lagos, Nigeria"
@@ -118,6 +118,10 @@ import CInput from "../../components/UI/forms/c-input.vue";
 import CButton from "../../components/UI/forms/c-button.vue";
 import FormError from "../../components/UI/form-error.vue";
 import useFormRequest from "../../composables/useFormRequest";
+
+definePageMeta({
+    middleware: ['auth', 'only-hire'],
+})
 let createJobError = ref(null);
 let skill = reactive({
     value: null,

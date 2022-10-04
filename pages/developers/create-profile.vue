@@ -166,6 +166,10 @@ import InputPills from '../../components/UI/input-pills.vue'
 import CButton from '../../components/UI/forms/c-button.vue'
 import CInput from '../../components/UI/forms/c-input.vue'
 import useFormRequest from '../../composables/useFormRequest'
+
+definePageMeta({
+    middleware: ['auth', 'only-dev'],
+})
 let createProfileError = ref(null)
 let skill = reactive({
     value: null,
@@ -368,8 +372,9 @@ let { submitForm, loading, data } = useFormRequest(
     formReactive,
     null,
     (data) => {
-        if(data){
-            useRouter().push("/jobs");
+        if(data.data){
+            useRouter().push(`/developers/${data.data}`);
+            
         }
 
     },

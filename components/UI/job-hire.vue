@@ -46,7 +46,7 @@ let { submitData, loading: loadingCreateReview, data } = useFormRequest(
     { jobId },
     (data) => {
         if (data) {
-            console.log(data)
+            // console.log(data)
             // reviewData.value = data.data
             useRouter().push(`/hiring/review/${data.data}`)
         }

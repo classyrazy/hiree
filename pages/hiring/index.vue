@@ -52,6 +52,9 @@ import JobHire from '../../components/UI/job-hire.vue'
 import useFormRequest from '~~/composables/useFormRequest'
 import axios from "axios"
 
+definePageMeta({
+    middleware: ['auth', 'only-hire'],
+})
 
 let baseURL = "https://hiree-server.herokuapp.com/"
 let companyJobs = ref([])

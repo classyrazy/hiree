@@ -35,7 +35,9 @@ import DevProfile from '../../../../components/UI/modals/dev-profile.vue'
 import ReviewedDevHire from '../../../../components/UI/reviewed-dev-hire.vue'
 import CButton from '../../../../components/UI/forms/c-button.vue'
 import useFormRequest from '~/composables/useFormRequest'
-
+definePageMeta({
+    middleware: ['auth', 'only-hire'],
+})
 let resultError = ref(null)
 let showModal = ref(false)
 let reviewData = ref(null)

@@ -52,7 +52,7 @@
                         </p>
                     </div>
                     <!-- {{developer.email}} -->
-                    <a :href="`mailto:${developer.email}`" v-if="type === 'profile'">
+                    <a :href="`mailto:${developer.email}`" v-if="type === 'profile' && showContact">
                         <c-button class="text-center w-full mx-auto md:w-auto">Contact</c-button>
                     </a>
                 </div>
@@ -91,7 +91,7 @@
             </div>
         </div>
 
-        <div class="w-full bg-gray-200 py-6">
+        <div class="w-full bg-gray-200 py-6 max-w-[1200px] mx-auto">
             <div class="" v-if="type === 'hiring'">
                 <div class="w-full h-1 bg-gray-300"></div>
 
@@ -184,11 +184,13 @@ interface Props {
     developer: object;
     review: object;
     type: "hiring" | "profile";
+    showContact: boolean;
 }
 
 // let props = defineProps<Props>()
 let props = withDefaults(defineProps<Props>(), {
     type: "hiring",
+    showContact: true,
 });
 let emit = defineEmits(["skillsGithub"]);
 let userGithub = ref(null);

@@ -13,31 +13,6 @@
             </li>
         </ul>
     </nav>
-
-        <!-- <div class="w-full absolute bottom-0 md:hidden block">
-            <svg width="100%" height="555" viewBox="0 0 428 555" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path
-                    d="M0 218.5C5.39934 139.61 59.7265 72.5932 135.793 50.9895L300.68 4.16019C364.527 -13.973 428 33.9835 428 100.356V555H0V218.5V218.5Z"
-                    fill="url(#paint0_linear_156_180)" />
-                <path
-                    d="M0 218.5C5.39934 139.61 59.7265 72.5932 135.793 50.9895L300.68 4.16019C364.527 -13.973 428 33.9835 428 100.356V555H0V218.5V218.5Z"
-                    fill="url(#paint1_linear_156_180)" />
-                <defs>
-                    <linearGradient id="paint0_linear_156_180" x1="79.9528" y1="233.653" x2="296.43" y2="305.042"
-                        gradientUnits="userSpaceOnUse">
-                        <stop offset="0.343518" stop-color="#E7298B" />
-                        <stop offset="1" stop-color="#9747FF" stop-opacity="0.88" />
-                    </linearGradient>
-                    <linearGradient id="paint1_linear_156_180" x1="214" y1="39.7222" x2="214" y2="555"
-                        gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#CE33C7" stop-opacity="0.44" />
-                        <stop offset="0.952701" stop-color="#ED267B" />
-                        <stop offset="0.967591" stop-color="#ED267B" />
-                    </linearGradient>
-                </defs>
-            </svg>
-
-        </div> -->
         <div class="w-full absolute bottom-0 hidden md:block">
             <svg class="relative" viewBox="0 0 1440 674" fill="none" xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="none" width="100%" height="455">
@@ -131,7 +106,8 @@ let { submitForm, loading, data } = useFormRequest(
     (data) => {
         if(data){
             localStorage.setItem("USER_AUTH_TOKEN", data.data.token);
-            useRouter().push(data.data.type == "hiring-manager"? "/hiring": "/jobs");
+            // useRouter().push(data.data.type == "hiring-manager"? "/hiring": "/jobs");
+            location.href= data.data.type == "hiring-manager"? "/hiring": "/jobs";
         }
 
     },

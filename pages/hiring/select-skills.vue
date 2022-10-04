@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex relative px-[15px] py-[20px] lg:px-[210px] lg:py-[47px]  flex-col font-monts ">
-            <router-link to="/" class="ml-1"><img src="/logo.svg" alt="logo"></router-link>
+            <router-link to="/hiring" class="ml-1"><img src="/logo.svg" alt="logo"></router-link>
 
 
             <test-compo :test-array="developersArr" v-if="developersArr.length" :skills="skills"></test-compo>
@@ -66,7 +66,9 @@ import CButton from '../../components/UI/forms/c-button.vue'
 import Jobpost from '../../components/UI/svgs/jobpost.vue'
 import CInput from '../../components/UI/forms/c-input.vue'
 import useFormRequest from '../../composables/useFormRequest'
-
+definePageMeta({
+    middleware: ['auth', 'only-hire'],
+})
 let skill = reactive({
     value: null,
     error: null,

@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="mb-auto">
-                        <c-button size="medium" type="b-pry-grad" @click="submitHandler" :loading="loading">Apply
+                        <c-button size="medium" type="b-pry-grad" @click="submitHandler" :loading="loading" v-if="!computedJobApplicationArr.includes(computedUserIdFromStore)">Apply
                         </c-button>
                     </div>
                 </div>
@@ -58,7 +58,15 @@
                     <h2 class="text-xl font-monts font-semibold my-4">Description</h2>
                     <p class="text-md font-monts">{{ computedJob.description }}</p>
                 </div>
-                <c-button size="medium" type="pry" @click="submitHandler" :loading="loading">Apply</c-button>
+                <div class="mt-16 mb-8">
+                    <h2 class="text-xl font-monts font-semibold my-4">Skills Needed</h2>
+                    <div class=" flex gap-4 flex-wrap">
+                        <skills-pill class=" my-2" v-for="skill in computedJob.skills">{{skill}}</skills-pill>
+                    </div>
+                </div>
+
+
+                <c-button size="medium" type="pry" @click="submitHandler" :loading="loading" v-if="!computedJobApplicationArr.includes(computedUserIdFromStore)">Apply</c-button>
                 <formError :error-msg="applicationError" @close-error="applicationError = null"></formError>
 
             </div>
@@ -74,6 +82,7 @@
 </template>
 
 <script setup lang="ts">
+import SkillsPill from '../../components/Profile/skills-pill.vue'
 import LoaderIcon from '../../components/UI/svgs/loader-icon.vue'
 import FormError from '../../components/UI/form-error.vue'
 import TimeIcon from '../../components/icons/time-icon.vue'
@@ -82,15 +91,22 @@ import CompanyIcon from '../../components/icons/company-icon.vue'
 import SalaryIcon from '../../components/icons/salary-icon.vue'
 import LocationIcon from '../../components/icons/location-icon.vue'
 import CButton from '../../components/UI/forms/c-button.vue'
-
+import { useUserStore } from '../../store/user'
 import axios from "axios"
-
+let store  = useUserStore()
 let id = useRoute().params._id
 let loadingJob = ref(true)
 let baseURL = "https://hiree-server.herokuapp.com/"
 // let baseURL = "http://localhost:7000/"
 let applicationError = ref(null)
 let job = ref(null)
+let computedUserIdFromStore = computed(() => {
+    if(store.user){
+        return store.user.dev_profile_id
+    }
+    return null
+})
+
 let token = localStorage.getItem("USER_AUTH_TOKEN");
 async function getData() {
     try {
@@ -114,6 +130,12 @@ getData()
 let computedJob = computed(() => {
     return job.value
 })
+let computedJobApplicationArr = computed(() => {
+    return job.value.applications.map((application) => {
+        return application.id
+    })
+})
+store.checkIfUserIsLoggedIn()
 let { submitData, loading, data } = useFormRequest(
     "api/jobs/apply",
     true,
@@ -128,9 +150,9 @@ let { submitData, loading, data } = useFormRequest(
     (error) => {
         console.log(error)
         if (error.response.data.error) {
-            if(error.response.data.error == "Unauthorized request as developer"  ){
-                applicationError.value= "Can't apply for job as an hiring manager"
-            }else if(error.response.data.error == "Unauthorized request"  ){
+            if (error.response.data.error == "Unauthorized request as developer") {
+                applicationError.value = "Can't apply for job as an hiring manager"
+            } else if (error.response.data.error == "Unauthorized request") {
                 useRouter().push("/login");
             }
             applicationError.value = error.response.data.error;
@@ -146,4 +168,5 @@ let submitHandler = () => {
 </script>
 
 <style scoped>
+
 </style>

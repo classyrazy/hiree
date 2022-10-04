@@ -3,7 +3,7 @@
         <nav class="flex px-[15px] py-[20px] lg:px-10 justify-between items-center">
             <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
             <!-- <div class="flex gap-4 items-center"> -->
-            <router-link to="hiring/select-skill">
+            <router-link v-if="computedUserIdFromStore" :to="`/developers/${computedUserIdFromStore}`" >
                 <c-button size="medium" type="b-pry-grad">View Profile</c-button>
             </router-link>
             <!-- </div> -->
@@ -34,14 +34,21 @@ import CInput from '../../components/UI/forms/c-input.vue'
 import CButton from '../../components/UI/forms/c-button.vue'
 import LoaderIcon from '../../components/UI/svgs/loader-icon.vue'
 import JobHire from '../../components/UI/job-hire.vue'
-
+import {useUserStore} from '../../store/user'
 import axios from "axios"
-
+ 
 
 let baseURL = "https://hiree-server.herokuapp.com/"
 // let baseURL = "http://localhost:7000/"
 let loading = ref(true)
 let jobs = ref([])
+let store = useUserStore()
+let computedUserIdFromStore = computed(() => {
+    if(store.user){
+        return store.user.dev_profile_id
+    }
+    return null
+})
 let searchJobValue = reactive({
     value: null,
     error: null
@@ -74,6 +81,8 @@ let computedJobs = computed(() => {
     }
     return jobs.value
 })
+store.checkIfUserIsLoggedIn()
+
 // onMounted(() => {
     // companyJobs.value = getData()
 // })

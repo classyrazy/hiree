@@ -1,7 +1,7 @@
 <template>
     <div class=" justify-between bg-gray-200">
         <header class="fixed top-0 w-full px-4 md:px-10 py-6 flex justify-between items-center bg-gray-200">
-            <router-link to="/"><img src="/logo.svg" alt="logo"></router-link>
+            <router-link to="/hiring"><img src="/logo.svg" alt="logo"></router-link>
             <ul class="end-link gap-4 flex items-center">
                 <li class="">
                     <c-button size="medium" @click="handleSubmitReview" :loading="loadingSubmitReview">Done</c-button>
@@ -151,6 +151,9 @@ import axios from "axios"
 import { useHireStore } from "../../../store/hire"
 
 let store = useHireStore()
+definePageMeta({
+    middleware: ['auth', 'only-hire'],
+})
 
 let route = useRoute()
 let router = useRouter()
