@@ -3,7 +3,7 @@ import { ref, reactive, watch, computed } from "vue";
 import axios from "axios"
 
 export const useUserStore = defineStore("user", () => {
-    let baseURL = "https://hiree-server.herokuapp.com/"
+    let baseURL = "https://hiree-8nfj.onrender.com/"
     // let baseURL = "http://localhost:7000/"
     let loadingUser = ref(false)
     let user = ref(null)

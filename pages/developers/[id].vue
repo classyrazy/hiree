@@ -41,7 +41,7 @@ definePageMeta({
     middleware: ['auth', 'only-dev'],
 })
 
-let baseURL = "https://hiree-server.herokuapp.com/"
+let baseURL = "https://hiree-8nfj.onrender.com/"
 let devProfile = ref(null)
 let devProfileError = ref(null)
 let token = localStorage.getItem("USER_AUTH_TOKEN");
