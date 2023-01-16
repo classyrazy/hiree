@@ -2,7 +2,7 @@ import { useUserStore } from "../store/user"
 import axios from "axios"
 export default defineNuxtRouteMiddleware(async (to, from) => {
     let store  = useUserStore()
-    let baseURL = "https://hiree-server.herokuapp.com/"
+    let baseURL = "https://hiree-8nfj.onrender.com/"
     // let baseURL = "http://localhost:7000/"
     if(store.user){
         if(store.user.type === "hiring-manager"){

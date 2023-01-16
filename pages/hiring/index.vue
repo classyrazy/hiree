@@ -56,7 +56,7 @@ definePageMeta({
     middleware: ['auth', 'only-hire'],
 })
 
-let baseURL = "https://hiree-server.herokuapp.com/"
+let baseURL = "https://hiree-8nfj.onrender.com/"
 let companyJobs = ref([])
 let companyReviews = ref([])
 let token = localStorage.getItem("USER_AUTH_TOKEN");

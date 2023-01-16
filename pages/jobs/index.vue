@@ -38,7 +38,7 @@ import {useUserStore} from '../../store/user'
 import axios from "axios"
  
 
-let baseURL = "https://hiree-server.herokuapp.com/"
+let baseURL = "https://hiree-8nfj.onrender.com/"
 // let baseURL = "http://localhost:7000/"
 let loading = ref(true)
 let jobs = ref([])
